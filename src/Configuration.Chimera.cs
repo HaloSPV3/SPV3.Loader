@@ -33,6 +33,7 @@ namespace SPV3
     private bool _blockLOD = false;
     private int _interpolation = 8;
     private bool _uncapCinematic = true;
+    private byte _throttle = 0;
 
     public Chimera Configuration { get; } = (Chimera)Chimera(Paths.Directory);
 
