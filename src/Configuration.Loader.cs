@@ -166,6 +166,7 @@ namespace SPV3
       }
 
       /// <summary> framerate to run spv3 at (in v-sync mode) </summary>
+      /// todo: supersede with int (or Double to match Chimera)
       public byte Framerate
       {
         get => _framerate;
@@ -174,6 +175,33 @@ namespace SPV3
           if (value == _framerate) return;
           _framerate = value;
           OnPropertyChanged();
+        }
+      }
+
+      ///<summary> fps control - vsync, throttle, uncap </summary>
+      public byte FramerateControl
+      {
+        get => field;
+        set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+          switch (value)
+          {
+            case 0: // V-Sync
+              FramerateIsCapped = true;
+              Vsync = true;
+              break;
+            case 1: // Throttle
+              FramerateIsCapped = true;
+              Vsync = false;
+              break;
+            case 2: // Unlimited
+              FramerateIsCapped = false;
+              Vsync = false;
+              break;
+          }
         }
       }
 
@@ -292,6 +320,17 @@ namespace SPV3
           /// DisplayMode.Get{} calls WindowBorderlessUpdate()
         }
       }
+
+      public bool FramerateIsCapped
+      {
+        get;
+        set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+        }
+      } = true;
 
       /// <summary>If `true`, <see cref="Version.VersionUpstream"/> also checks for pre-release updates</summary>
       public bool AllowPrereleaseUpdates

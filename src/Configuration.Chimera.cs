@@ -33,7 +33,6 @@ namespace SPV3
     private bool _blockLOD = false;
     private int _interpolation = 8;
     private bool _uncapCinematic = true;
-    private byte _throttle = 0;
 
     public Chimera Configuration { get; } = (Chimera)Chimera(Paths.Directory);
 
@@ -81,6 +80,17 @@ namespace SPV3
       }
     }
 
+    public int Throttle
+    {
+      get;
+      set
+      {
+        if (value == field) return;
+        field = value;
+        OnPropertyChanged();
+      }
+    }
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public void Load()
@@ -93,6 +103,7 @@ namespace SPV3
       AnisotropicFiltering = Configuration.AnisotropicFiltering;
       UncapCinematic = Configuration.UncapCinematic;
       BlockLOD = Configuration.BlockLOD;
+      Throttle = (int)System.Math.Round(Configuration.Throttle);
     }
 
     public void Save()
@@ -101,6 +112,7 @@ namespace SPV3
       Configuration.AnisotropicFiltering = AnisotropicFiltering;
       Configuration.UncapCinematic = UncapCinematic;
       Configuration.BlockLOD = BlockLOD;
+      Configuration.Throttle = Throttle;
 
       Configuration.Save();
     }
