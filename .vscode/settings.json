@@ -85,6 +85,7 @@
     "yumiris"
   ],
   "cmake.sourceDirectory": "${workspaceFolder}/ext/HCE.DRP/src",
+  "cmake.buildDirectory": "${workspaceFolder}/ext/HCE.DRP/artifacts/obj/DRP/release_win-x86/win-x86/x86",
   "csharp-dev-tools.solutionViewer.selectedWorkspaceSolutions": [
     "SPV3.slnx"
   ]
