@@ -80,6 +80,7 @@
     <SelfContained Condition="'$(Configuration)' != Debug">$(PublishSingleFile)</SelfContained>
     <EnableCompressionInSingleFile>$(PublishSelfContained)</EnableCompressionInSingleFile>
     <PublishTrimmed>$('$(UseWPF)' != 'true' AND '$(UseWindowsForms)' != 'true')</PublishTrimmed>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup> <!-- Misc Project Items -->
