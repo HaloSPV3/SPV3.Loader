@@ -198,14 +198,14 @@
     </When>
   </Choose>
 
-  <ItemGroup> <!-- IL Link -->
+  <ItemGroup Label="IL Link">
     <Content Update="D3DCompiler_47_cor3.dll;HXE.dll;sni.dll;PenImc_cor3.dll;PresentationNative_cor3.dll;vcruntime140_core3.dll;wpfgfx_cor3.dll">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <ExcludeFromSingleFile>false</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>
 
-  <ItemGroup> <!-- Trimmer -->
+  <ItemGroup Label="Trim">
     <!-- runtime.native.system.data.sqlclient.sni -->
     <TrimmerRootAssembly Include="sni;HXE" />
     <!--<TrimmerRootAssembly Include="System.Security" />-->
