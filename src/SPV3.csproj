@@ -149,6 +149,10 @@
       Private="true">
       <Name>HXE</Name>
     </ProjectReference>
+    <ProjectReference Include="$(MSBuildProjectDirectory)/../ext/HCE.DRP/src/DRP.nativeproj"
+      Name="HCE.DRP" ReferenceOutputAssembly="false" Private="true"
+      SetConfiguration="Configuration=Release">
+    </ProjectReference>
   </ItemGroup>
 
   <ItemGroup> <!-- Package References -->
