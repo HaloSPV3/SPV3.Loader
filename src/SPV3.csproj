@@ -145,8 +145,8 @@
 
   <ItemGroup> <!-- Project References -->
     <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'"
-      Include="$(MSBuildProjectDirectory)/../ext/hxe/src/HXE.csproj">
-      <Project>{acaa5d9f-b23d-43e1-b2df-8c03230975a1}</Project>
+      Include="$(MSBuildProjectDirectory)/../ext/hxe/src/HXE.csproj"
+      Private="true">
       <Name>HXE</Name>
     </ProjectReference>
   </ItemGroup>
