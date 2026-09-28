@@ -143,7 +143,7 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup> <!-- Project References -->
+  <ItemGroup Label="References">
     <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'"
       Include="$(MSBuildProjectDirectory)/../ext/hxe/src/HXE.csproj"
       Private="true">
@@ -153,9 +153,7 @@
       Name="HCE.DRP" ReferenceOutputAssembly="false" Private="true"
       SetConfiguration="Configuration=Release">
     </ProjectReference>
-  </ItemGroup>
 
-  <ItemGroup> <!-- Package References -->
     <PackageReference Include="GitVersion.MsBuild" Version="6.8.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
