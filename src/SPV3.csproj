@@ -83,6 +83,10 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
+    <EnableCompressionInSingleFile>$(NET6_0_OR_GREATER)</EnableCompressionInSingleFile>
+  </PropertyGroup>
+
   <ItemGroup> <!-- Misc Project Items -->
     <None Include="../README.md">
       <Link>.docs-misc/REAMDE.md</Link>
