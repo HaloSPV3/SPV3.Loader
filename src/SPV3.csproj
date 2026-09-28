@@ -3,7 +3,9 @@
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <Prefer32Bit>false</Prefer32Bit>
-    <TargetFrameworks>net480;net6.0-windows</TargetFrameworks>
+    <!-- If TargetFramework and/or RuntimeIdentifiers are changed,
+     you must also update the `githubReleaseAssetHint` in file://./../.releaserc.ts -->
+    <TargetFrameworks>net480;net6.0-windows</TargetFrameworks> <!-- todo: net10.0 -->
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
