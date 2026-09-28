@@ -9,9 +9,41 @@ import '@semantic-release/exec';
 import '@semantic-release/git';
 import '@semantic-release/github';
 import '@semantic-release/release-notes-generator';
+import assert from 'node:assert';
+import { readFile } from 'node:fs/promises';
 import { exit } from 'node:process';
 import 'semantic-release-export-data';
 
+const targetFrameworks = 'net480;net6.0-windows';
+const projectText = await readFile('src/SPV3.csproj', { encoding: 'utf-8' });
+
+try {
+  assert(projectText.includes(`<TargetFrameworks>${targetFrameworks}</TargetFrameworks>`));
+}
+catch (error) {
+  console.error(error);
+  exit(1);
+}
+
+// https://github.com/semantic-release/github/blob/master/README.md#Options:~:text=releaseBodyTemplate
+// SPV3.Loader.2.3.0-alpha.31.net480.win-x86.zip
+const githubReleaseAssetHint = /* md */ `\
+## Which File?
+
+- "SPV3.Loader $VERSION (net480).zip" (RECOMMENDED)
+  - Requirements:
+    - .NET Framework 4.8
+      - Windows 11 or Windows 10 1903 (May 19, 2019) or later?
+        - No action needed. It's pre-installed.
+      - Windows 7/8/8.1 or Windows 10 &lt; 1903 (May 19, 2019)?
+        - [Microsoft's Web Installer](https://go.microsoft.com/fwlink/?LinkId=2085155) will install the appropriate variant of .NET Framework for your CPU if its type is supported e.g. i386/i686/x86 (32-bit), AMD64/x86_64 (64-bit), Arm32/Arm <= v7 (32-bit), Arm64 >= v8 (64-bit). RISC-V CPUs are unsupported.
+      - Wine/Proton?
+        - Older versions of Wine may need net48 installed via Winetricks/Protontricks.
+- "SPV3.Loader $VERSION (net6.0-windows win7-x86).zip"
+
+For compatibility, both are built so they can run on 32-bit (x86) or 64-bit (x86_64, AMD64, ARM64) Windows 7 SP1 or later.
+Yes, we know there is no ARM64 Windows 7 SP1.
+`;
 const projectsToPublish = ['./src/SPV3.csproj'];
 
 let config: Awaited<ReturnType<typeof getConfig>>;
@@ -56,4 +88,15 @@ const releaseNotesGen = config.plugins?.find<PluginSpecSRReleaseNotesGen>(
 if (releaseNotesGen) {
   releaseNotesGen[1].preset = 'conventionalcommits';
 }
+
+const github = config.plugins?.find<PluginSpecSRGithub>(
+  (p): p is PluginSpecSRGithub => p[0] === '@semantic-release/github',
+);
+if (github) {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  github[1] ??= {} as PluginSpecSRGithub[1];
+  github[1].releaseBodyTemplate = `${githubReleaseAssetHint}
+  `;
+}
+
 export default config;
