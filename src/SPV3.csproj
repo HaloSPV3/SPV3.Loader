@@ -16,6 +16,7 @@
     <!-- Application | Resources -->
     <ApplicationIcon>Assets/icon.ico</ApplicationIcon>
     <RootNamespace>SPV3</RootNamespace>
+    <UseApplicationTrust>true</UseApplicationTrust>
     <SupportUrl>https://github.com/HaloSPV3/HCE/issues</SupportUrl>
     <!-- Build | General -->
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
