@@ -147,6 +147,7 @@
     <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'"
       Include="$(MSBuildProjectDirectory)/../ext/hxe/src/HXE.csproj"
       Private="true">
+      <Properties>SelfContained=false</Properties>
       <Name>HXE</Name>
     </ProjectReference>
     <ProjectReference Include="$(MSBuildProjectDirectory)/../ext/HCE.DRP/src/DRP.nativeproj"
