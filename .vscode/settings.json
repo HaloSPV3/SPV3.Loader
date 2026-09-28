@@ -88,5 +88,7 @@
   "cmake.buildDirectory": "${workspaceFolder}/ext/HCE.DRP/artifacts/obj/DRP/release_win-x86/win-x86/x86",
   "csharp-dev-tools.solutionViewer.selectedWorkspaceSolutions": [
     "SPV3.slnx"
-  ]
+  ],
+  "vcpkg.general.enable": false,
+  "licenser.customSPDXId": "gpl-3.0-only"
 }
