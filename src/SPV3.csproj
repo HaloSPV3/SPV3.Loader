@@ -5,7 +5,8 @@
     <Prefer32Bit>false</Prefer32Bit>
     <!-- If TargetFramework and/or RuntimeIdentifiers are changed,
      you must also update the `githubReleaseAssetHint` in file://./../.releaserc.ts -->
-    <TargetFrameworks>net480;net6.0-windows</TargetFrameworks> <!-- todo: net10.0 -->
+    <TargetFrameworks>net480;net6.0-windows</TargetFrameworks> <!-- todo: net10.0 + Avalonia -->
+    <TargetFrameworks Condition="'$(Configuration)' == Debug">$(TargetFrameworks);net10.0-windows</TargetFrameworks>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
