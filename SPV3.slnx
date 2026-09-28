@@ -1,7 +1,12 @@
-<!-- Example: https://github.com/microsoft/vs-solutionpersistence/blob/main/test/Microsoft.VisualStudio.SolutionPersistence.Tests/SlnAssets/Everything.slnx.xml -->
-<Solution>
-  <Project Path="ext/HCE.DRP/src/DRP.vcxproj" Type="C#" />
-  <Project Path="ext/hxe/src/HXE.csproj" />
+<Solution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/microsoft/vs-solutionpersistence/refs/heads/main/src/Microsoft.VisualStudio.SolutionPersistence/Serializer/Xml/Slnx.xsd">
+  <Folder Name="/HXE/">
+    <Project Path="ext/hxe/src/HXE.csproj" />
+    <Project Path="ext/hxe/tests/HXE.Tests/HXE.Tests.csproj" />
+  </Folder>
+  <Folder Name="/HXE/XmlSourceGenerator/">
+    <Project Path="ext/hxe/ext/XmlSourceGenerator/src/XmlSourceGenerator.Abstractions/XmlSourceGenerator.Abstractions.csproj" />
+    <Project Path="ext/hxe/ext/XmlSourceGenerator/src/XmlSourceGenerator/XmlSourceGenerator.csproj" />
+  </Folder>
   <Project Path="src/SPV3.csproj">
     <BuildDependency Project="ext/hxe/src/HXE.csproj" />
   </Project>
