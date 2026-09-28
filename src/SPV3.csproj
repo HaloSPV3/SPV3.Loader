@@ -67,7 +67,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(NET6_0_OR_GREATER)' == 'true'">
+    <!-- If framework supports Windows 7 SP1, build x86 executable for compatibility -->
     <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+    <!-- else, Windows 10 or later; Windows 8/8.1? idk -->
+    <RuntimeIdentifier Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <EnableCompressionInSingleFile>$(PublishSelfContained)</EnableCompressionInSingleFile>
     <PublishTrimmed>$('$(UseWPF)' != 'true' AND '$(UseWindowsForms)' != 'true')</PublishTrimmed>
