@@ -1,7 +1,9 @@
 <Solution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/microsoft/vs-solutionpersistence/refs/heads/main/src/Microsoft.VisualStudio.SolutionPersistence/Serializer/Xml/Slnx.xsd">
   <Folder Name="/HXE/">
     <Project Path="ext/hxe/src/HXE.csproj" />
-    <Project Path="ext/hxe/tests/HXE.Tests/HXE.Tests.csproj" />
+    <Project Path="ext/hxe/tests/HXE.Tests/HXE.Tests.csproj">
+      <BuildDependency Project="ext/hxe/src/HXE.csproj"/>
+    </Project>
   </Folder>
   <Folder Name="/HXE/XmlSourceGenerator/">
     <Project Path="ext/hxe/ext/XmlSourceGenerator/src/XmlSourceGenerator.Abstractions/XmlSourceGenerator.Abstractions.csproj" />
