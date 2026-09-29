@@ -1,0 +1,46 @@
+{
+  "folders": [
+    { "name": "SPV3.Loader", "path": ".." },
+    { "name": "HCE.DRP", "path": "../ext/HCE.DRP" },
+    { "name": "HXE", "path": "../ext/hxe" },
+    { "name": "XmlSourceGenerator", "path": "../ext/hxe/ext/XmlSourceGenerator" }
+  ],
+  "settings": {
+    "cmake.sourceDirectory": "${workspaceFolder}/ext/HCE.DRP/src",
+    "dotnet.defaultSolution": "SPV3.Loader/SPV3.slnx",
+    "files.associations": {
+      "**/.vscode/*.json": "jsonc",
+      ".xaml": "xaml",
+      ".vcxproj": "msbuild",
+      ".nativeproj": "msbuild"
+    },
+    "github-actions.workflows.pinned.workflows": [
+      ".github/workflows/release.yml",
+      ".github/workflows/ci.yml"
+    ],
+    "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
+    "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+    "licenser.customSPDXId": "gpl-3.0-only",
+    "licenser.license": "GPLv3",
+    "licenser.useSPDXLicenseFormat": true,
+    "vcpkg.general.enable": false,
+    "vcpkg.target.useStaticLib": false,
+    "xml.codeLens.enabled": true
+  },
+  "launch": {
+    "configurations": [
+      {
+        "type": "cmake",
+        "request": "launch",
+        "name": "Debug portfile(s)",
+        "cmakeDebugType": "external",
+        "pipeName": "/tmp/vcpkg_ext_portfile_dbg",
+        "preLaunchTask": "Debug vcpkg commands"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [ ]
+  }
+}
