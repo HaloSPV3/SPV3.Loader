@@ -32,6 +32,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
 
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+
     <NET6_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))</NET6_0_OR_GREATER>
     <!-- <NET7_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))</NET7_0_OR_GREATER> -->
     <NET7_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([System.Text.RegularExpressions.Regex]::IsMatch("$(TargetFramework)", 'net([7-9]|\d{2}).0', RegexOptions.ECMAScript))</NET7_0_OR_GREATER>
@@ -228,5 +230,43 @@
         AND '$(IntermediateOutputPath)' != ''
         AND '$(_incompletePath)' != ''">$([System.Text.RegularExpressions.Regex]::Replace("$(IntermediateOutputPath)","([\\/])$(_cfg)_([\\/])", "$1$(_cfg)_$(_tfm)$2", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</IntermediateOutputPath>
     </PropertyGroup>
+  </Target>
+
+  <Target Name="Build">
+
+    <GenerateTrustInfo>
+      <Output ItemName="TrustInfo" TaskParameter="TrustInfoFile"></Output>
+    </GenerateTrustInfo>
+
+    <GenerateApplicationManifest
+      AssemblyName="$(AssemblyName).exe"
+      AssemblyVersion="$(AssemblyVersion)"
+      EntryPoint="@(EntryPoint)"
+      TrustInfoFile="@(TrustInfo)"
+      OutputManifest="$(AssemblyName).exe.manifest">
+      <Output
+        ItemName="ApplicationManifest"
+        TaskParameter="OutputManifest" />
+    </GenerateApplicationManifest>
+
+    <!-- <GenerateDeploymentManifest
+      AssemblyName="$(AssemblyName).application"
+      AssemblyVersion="$(AssemblyVersion)"
+      EntryPoint="$(ApplicationManifest)"
+      Install="false"
+      OutputManifest="$(AssemblyName).application">
+      <Output
+        ItemName="DeployManifest"
+        TaskParameter="OutputManifest" />
+    </GenerateDeploymentManifest> -->
+
+    <SignFile Condition="'$(Thumbprint)' != ''"
+      CertificateThumbprint="$(Thumbprint)"
+      SigningTarget="@(ApplicationManifest)" />
+
+    <SignFile Condition="'$(Thumbprint)' != ''"
+      CertificateThumbprint="$(Thumbprint)"
+      SigningTarget="@(DeployManifest)" />
+
   </Target>
 </Project>
