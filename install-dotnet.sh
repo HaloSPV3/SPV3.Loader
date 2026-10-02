@@ -46,7 +46,7 @@ if [[ ! -e "$INSTALL_DIR" ]]; then
     echo 'DOTNET_INSTALL="$HOME/.dotnet"'
   fi
 
- ln -s "$DOTNET_INSTALL_DIR" "$INSTALL_DIR"
+  ln -s "$DOTNET_INSTALL_DIR" "$INSTALL_DIR"
 fi
 
 echo "Installing .NET $CHANNEL ($QUALITY) SDK to $INSTALL_DIR ..."
@@ -60,7 +60,7 @@ rm -f "$SCRIPT_DIR/dotnet-install.sh"
 SDK_VERSION="$("$INSTALL_DIR/dotnet" --version)"
 
 # Create global.json with the installed version
-cat > "$SCRIPT_DIR/global.json" << EOF
+cat >"$SCRIPT_DIR/global.json" <<EOF
 {
   "sdk": {
     "version": "$SDK_VERSION",
@@ -83,9 +83,9 @@ fi
 
 # Install workloads if configured
 if [ -n "${WORKLOADS:-}" ]; then
-    echo "Installing workloads: $WORKLOADS"
-    # shellcheck disable=SC2086
-    "$INSTALL_DIR/dotnet" workload install $WORKLOADS
+  echo "Installing workloads: $WORKLOADS"
+  # shellcheck disable=SC2086
+  "$INSTALL_DIR/dotnet" workload install $WORKLOADS
 fi
 
 echo ""
