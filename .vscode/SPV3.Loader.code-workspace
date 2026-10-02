@@ -25,7 +25,8 @@
     "licenser.useSPDXLicenseFormat": true,
     "vcpkg.general.enable": false,
     "vcpkg.target.useStaticLib": false,
-    "xml.codeLens.enabled": true
+    "xml.codeLens.enabled": true,
+    "powershell.cwd": "SPV3.Loader"
   },
   "launch": {
     "configurations": [
