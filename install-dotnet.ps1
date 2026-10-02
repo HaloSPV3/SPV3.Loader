@@ -16,7 +16,12 @@ if ($PSVersionTable.Platform -eq 'Win32NT') {
 
 $DOTNET_INSTALL_DIR = "$env:LocalAppData\Microsoft\dotnet"
 $isUnixLike = $PSVersionTable.Platform -eq 'Unix';
-if ($isUnixLike) { $DOTNET_INSTALL_DIR = "$env:HOME/.dotnet" }
+if ($isUnixLike) {
+  $DOTNET_INSTALL_DIR = "$env:HOME/.dotnet"
+  if (Test-Path "$env:DOTNET_INSTALL") {
+    $DOTNET_INSTALL_DIR = $env:DOTNET_INSTALL
+  }
+}
 
 [System.Environment]::SetEnvironmentVariable('DOTNET_INSTALL_DIR', "$DOTNET_INSTALL_DIR", [System.EnvironmentVariableTarget]::User);
 
