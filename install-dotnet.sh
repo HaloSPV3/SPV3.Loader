@@ -67,8 +67,9 @@ cat > "$SCRIPT_DIR/global.json" << EOF
     "allowPrerelease": false,
     "rollForward": "latestFeature",
     "paths": [".dotnet", ".dotnet-win", "\$host\$"],
-    "errorMessage": "Required .NET SDK not found. Run ./install-dotnet.sh (macOS/Linux) or .\\\\install-dotnet.ps1 (Windows/Wine) to install it locally."
-  }
+    "errorMessage": "Required .NET SDK not found. Run ./install-dotnet.sh (macOS/Linux) or ./install-dotnet.ps1 (Windows/Wine) to install it locally. '.dotnet' can be a symbolic link."
+  },
+  "test": { "runner": "Microsoft.Testing.Platform" }
 }
 EOF
 
