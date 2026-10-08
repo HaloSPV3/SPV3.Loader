@@ -79,7 +79,7 @@
     <!-- else, Windows 10 or later; Windows 8/8.1? idk -->
     <RuntimeIdentifier Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
-    <SelfContained Condition="'$(Configuration)' != Debug">$(PublishSingleFile)</SelfContained>
+    <!-- Setting RuntimeIdentifier also sets SelfContained to true by default. -->
     <EnableCompressionInSingleFile>$(PublishSelfContained)</EnableCompressionInSingleFile>
     <PublishTrimmed>$('$(UseWPF)' != 'true' AND '$(UseWindowsForms)' != 'true')</PublishTrimmed>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
