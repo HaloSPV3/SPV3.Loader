@@ -3,6 +3,7 @@ src/FodyWeavers.xsd
 **/.dotnet
 **/.dotnet-win
 .wineprefix
+*.exe
 
 ### yarn ###
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
