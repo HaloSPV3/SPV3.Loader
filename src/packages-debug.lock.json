@@ -19,13 +19,12 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[2.3.1, )",
-        "resolved": "2.3.1",
-        "contentHash": "ZO/oqIut5wJTOt8VnTIKFKylNl6dptwMzl0+2IBCNT5q0qsBAC/oErthacgfYucKkav72bbMix9WSOZSBD3HoQ==",
+        "requested": "[3.0.1, )",
+        "resolved": "3.0.1",
+        "contentHash": "0NDbFQmDEgcC0q+52wOEMSLkt1MVWjdnIeaJd4hYG+wW0UudHuHsgv3Q/s7Uc6pLj3Tk5lkN0Dlxz5KZ2XDfyA==",
         "dependencies": {
           "System.Memory": "4.6.3",
-          "System.Text.Json": "4.6.0",
-          "XmlSourceGenerator": "1.0.2-alpha"
+          "System.Text.Json": "10.0.12"
         }
       },
       "MahApps.Metro": {
@@ -203,11 +202,6 @@
         "type": "Transitive",
         "resolved": "4.6.2",
         "contentHash": "yQgmjfFximrNm9LIV3mL6T5MzjeC+epeE5rl4hXxAlYmxby7RM1dPSkIKXk9HNkl6G54h2JHOmLD46+Pey+IRg=="
-      },
-      "XmlSourceGenerator": {
-        "type": "Transitive",
-        "resolved": "1.0.2-alpha",
-        "contentHash": "66rw74gtxwAsQEWoBq5xyT/g90zqNUCp4ubbHnGSpGQPm51FgUdC71WBvadb1dBJ/2YYX4pDKBnI7OQPIVSJIQ=="
       }
     },
     ".NETFramework,Version=v4.8/win-x86": {},
@@ -221,11 +215,12 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[2.3.1, )",
-        "resolved": "2.3.1",
-        "contentHash": "ZO/oqIut5wJTOt8VnTIKFKylNl6dptwMzl0+2IBCNT5q0qsBAC/oErthacgfYucKkav72bbMix9WSOZSBD3HoQ==",
+        "requested": "[3.0.1, )",
+        "resolved": "3.0.1",
+        "contentHash": "0NDbFQmDEgcC0q+52wOEMSLkt1MVWjdnIeaJd4hYG+wW0UudHuHsgv3Q/s7Uc6pLj3Tk5lkN0Dlxz5KZ2XDfyA==",
         "dependencies": {
-          "XmlSourceGenerator": "1.0.2-alpha"
+          "LinuxDesktopUtils.XDGDesktopPortal": "1.0.2",
+          "Tmds.DBus.Protocol": "0.95.1"
         }
       },
       "MahApps.Metro": {
@@ -284,6 +279,16 @@
           "Microsoft.Xaml.Behaviors.Wpf": "1.1.19"
         }
       },
+      "LinuxDesktopUtils.XDGDesktopPortal": {
+        "type": "Transitive",
+        "resolved": "1.0.2",
+        "contentHash": "Fzh60n4SBP2+QcC0JPHoCPvdnlcJpLZ7+AZzn8kCBbqxFE5I2HPLn1/QtiFIgQzxJewoYczkfYmB/iRvmMEEOQ==",
+        "dependencies": {
+          "OneOf": "3.0.271",
+          "R3": "1.3.0",
+          "Tmds.DBus.Protocol": "0.21.2"
+        }
+      },
       "Microsoft.Extensions.Primitives": {
         "type": "Transitive",
         "resolved": "5.0.1",
@@ -294,10 +299,20 @@
         "resolved": "1.1.19",
         "contentHash": "5sPWkbqImc2t1aQwIfJcKsUo7tOg1Tr8+6xVzZJB56Nzt4u9NlpcLofgdX/aRYpPKdWDA3U23Akw1KQzU5e82g=="
       },
-      "XmlSourceGenerator": {
+      "OneOf": {
         "type": "Transitive",
-        "resolved": "1.0.2-alpha",
-        "contentHash": "66rw74gtxwAsQEWoBq5xyT/g90zqNUCp4ubbHnGSpGQPm51FgUdC71WBvadb1dBJ/2YYX4pDKBnI7OQPIVSJIQ=="
+        "resolved": "3.0.271",
+        "contentHash": "pqpqeK8xQGggExhr4tesVgJkjdn+9HQAO0QgrYV2hFjE3y90okzk1kQMntMiUOGfV7FrCUfKPaVvPBD4IANqKg=="
+      },
+      "R3": {
+        "type": "Transitive",
+        "resolved": "1.3.0",
+        "contentHash": "c4bL37HGimYon/qfRTZOJE41M3cgdMJn/p4O5Jq+WHTJGNXUb1x2DlVI+iZk5phCBwq3ERfrgbaPu9WdG2OS+w=="
+      },
+      "Tmds.DBus.Protocol": {
+        "type": "Transitive",
+        "resolved": "0.95.1",
+        "contentHash": "IbGhqZAqqgB/DkT70+lAk4MNv95tZtsTMFQ+S3uGy0aTfOkGVeFjeNJsX8dBI/3+CPnO5XW6lRQKGeFEgHElKw=="
       }
     },
     "net10.0-windows7.0/win-x86": {},
@@ -311,12 +326,9 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[2.3.1, )",
-        "resolved": "2.3.1",
-        "contentHash": "ZO/oqIut5wJTOt8VnTIKFKylNl6dptwMzl0+2IBCNT5q0qsBAC/oErthacgfYucKkav72bbMix9WSOZSBD3HoQ==",
-        "dependencies": {
-          "XmlSourceGenerator": "1.0.2-alpha"
-        }
+        "requested": "[3.0.1, )",
+        "resolved": "3.0.1",
+        "contentHash": "0NDbFQmDEgcC0q+52wOEMSLkt1MVWjdnIeaJd4hYG+wW0UudHuHsgv3Q/s7Uc6pLj3Tk5lkN0Dlxz5KZ2XDfyA=="
       },
       "MahApps.Metro": {
         "type": "Direct",
@@ -389,11 +401,6 @@
         "type": "Transitive",
         "resolved": "1.1.19",
         "contentHash": "5sPWkbqImc2t1aQwIfJcKsUo7tOg1Tr8+6xVzZJB56Nzt4u9NlpcLofgdX/aRYpPKdWDA3U23Akw1KQzU5e82g=="
-      },
-      "XmlSourceGenerator": {
-        "type": "Transitive",
-        "resolved": "1.0.2-alpha",
-        "contentHash": "66rw74gtxwAsQEWoBq5xyT/g90zqNUCp4ubbHnGSpGQPm51FgUdC71WBvadb1dBJ/2YYX4pDKBnI7OQPIVSJIQ=="
       }
     },
     "net6.0-windows7.0/win-x86": {},
