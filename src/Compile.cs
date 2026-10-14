@@ -88,10 +88,10 @@ namespace SPV3
         var sourceCompileFile = Combine(CurrentDirectory, Paths.Compile);
         var backupCompileFile = Combine(GetFolderPath(ApplicationData), Paths.Compile);
 
-        if (Exists(backupCompileFile))
+        if (File.Exists(backupCompileFile))
           Delete(backupCompileFile);
 
-        if (Exists(sourceCompileFile))
+        if (File.Exists(sourceCompileFile))
           Move(sourceCompileFile, backupCompileFile);
 
         /**
@@ -116,12 +116,12 @@ namespace SPV3
          * Restore the file which permits us to compile!
          */
 
-        if (Exists(backupCompileFile))
+        if (File.Exists(backupCompileFile))
           Move(backupCompileFile, sourceCompileFile);
 
         var redundantHxeExecutable = Combine(Paths.Packages(Target), HXE.Paths.Executable);
 
-        if (Exists(redundantHxeExecutable))
+        if (File.Exists(redundantHxeExecutable))
           Delete(redundantHxeExecutable);
 
         Status = "Compilation has successfully finished!";
