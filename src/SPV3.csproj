@@ -232,6 +232,23 @@
     </PropertyGroup>
   </Target>
 
+  <Target Name="AfterBuild_RemoveEmptyDirectory" AfterTargets="Build">
+    <!-- https://stackoverflow.com/a/11055543
+    MahApps.Metro packages German/Deutsch localization in its "de" subfolder.
+    Costura.Fody bundles the localization satellite assembly, leaving the "de" folder empty.
+    Empty folders are copied to the intermediate, build, and publish output.
+    That is unnecessary.
+    This Target recursively searches the build output for directory trees with 0 files and deletes them. -->
+    <ItemGroup>
+      <Directories Condition="Exists('$(OutputPath)')"
+        Include="$([System.IO.Directory]::GetDirectories('$(OutputPath)', '*', System.IO.SearchOption.AllDirectories))" />
+      <Directories>
+        <Files>$([System.IO.Directory]::GetFiles("%(Directories.Identity)", "*", System.IO.SearchOption.AllDirectories).get_Length())</Files>
+      </Directories>
+    </ItemGroup>
+    <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
+  </Target>
+
   <Target Name="Build">
 
     <GenerateTrustInfo>
