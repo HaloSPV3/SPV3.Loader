@@ -42,7 +42,7 @@ namespace SPV3
       var startInfo = new ProcessStartInfo()
       {
         FileName = "https://github.com/HaloSPV3/SPV3.Loader/compare/" +
-          $"v{Assembly.Version}...v{Upstream.Version}",
+          $"v{GitVersionInformation.FullSemVer}...v{Upstream.Version}",
         UseShellExecute = true
       };
       Process.Start(startInfo);
