@@ -66,9 +66,9 @@ namespace SPV3
     {
       Save(); // Save all settings, copy Loader to Kernel equivalents
 
-      var Settings = new HXE.Settings(hxe); // Pass modified Kernel instance to Settings.
-      Settings.ShowDialog();
-      if (Settings.DialogResult == true)
+      var settings = new HXE.Settings(hxe); // Pass modified Kernel instance to Settings.
+      settings.ShowDialog();
+      if (settings.DialogResult == true)
       {
         hxe.Load();
         spv3.Load();
