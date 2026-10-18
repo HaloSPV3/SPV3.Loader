@@ -152,10 +152,9 @@
       <Name>HXE</Name>
     </ProjectReference>
     <ProjectReference Include="$(MSBuildProjectDirectory)/../ext/HCE.DRP/src/DRP.nativeproj"
-      Name="HCE.DRP" ReferenceOutputAssembly="false" Private="true" Condition="'$(UseBleedingEdgeHceDrp)' == true"
-      SetConfiguration="Configuration=Release">
-    </ProjectReference>
-
+      Name="HCE.DRP" ReferenceOutputAssembly="false" Private="true"
+      SetConfiguration="Configuration=Release"
+      Condition="'$(UseBleedingEdgeHceDrp)' == true" />
     <PackageReference Include="GitVersion.MsBuild" Version="6.8.2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
