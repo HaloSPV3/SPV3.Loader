@@ -29,9 +29,9 @@
       },
       "MahApps.Metro": {
         "type": "Direct",
-        "requested": "[2.4.10, )",
-        "resolved": "2.4.10",
-        "contentHash": "45exHKJCVYaD1/rNr3ekZPECEBM4uHOt6aYp6yNaJbliFMUo+d3z8Gi1xG+qEkbiHKITX+dlz+BW1FOsjAbl/w==",
+        "requested": "[2.4.11, )",
+        "resolved": "2.4.11",
+        "contentHash": "pvk757N/ViZy+zlbB56AakryuZkts328M6pX2mMn/Z7r5ifkScDrS300zSBjLd+eGOPeHgUjH4f7cZbRiMyvQg==",
         "dependencies": {
           "ControlzEx": "[4.4.0, 6.0.0)"
         }
@@ -220,9 +220,9 @@
       },
       "MahApps.Metro": {
         "type": "Direct",
-        "requested": "[2.4.10, )",
-        "resolved": "2.4.10",
-        "contentHash": "45exHKJCVYaD1/rNr3ekZPECEBM4uHOt6aYp6yNaJbliFMUo+d3z8Gi1xG+qEkbiHKITX+dlz+BW1FOsjAbl/w==",
+        "requested": "[2.4.11, )",
+        "resolved": "2.4.11",
+        "contentHash": "pvk757N/ViZy+zlbB56AakryuZkts328M6pX2mMn/Z7r5ifkScDrS300zSBjLd+eGOPeHgUjH4f7cZbRiMyvQg==",
         "dependencies": {
           "ControlzEx": "[4.4.0, 6.0.0)"
         }
