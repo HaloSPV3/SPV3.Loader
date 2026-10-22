@@ -235,7 +235,7 @@ namespace SPV3
         output += $"INFO -- Custom Edition is activated: {CustomActivated}{NewLine}";
         output += $"INFO -- Retail Edition is activated: {RetailActivated}{NewLine}";
         output += $"INFO -- CEA found: {Exists(Halo1Path)}{NewLine}";
-        file.WriteAllText(output);
+        file.AppendAllText(output);
       }
     }
 
