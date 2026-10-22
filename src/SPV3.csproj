@@ -8,6 +8,16 @@
     <TargetFrameworks>net480;net6.0-windows</TargetFrameworks>
     <!-- todo: net10.0 + Avalonia -->
     <!-- <TargetFrameworks Condition="'$(Configuration)' == Debug">$(TargetFrameworks);net10.0-windows</TargetFrameworks> -->
+
+    <NET6_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))</NET6_0_OR_GREATER>
+    <NET7_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))</NET7_0_OR_GREATER>
+
+    <!-- If framework supports Windows 7 SP1, build x86 executable for compatibility -->
+    <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win7-x86</RuntimeIdentifier>
+    <!-- else, Windows 10 or later; Windows 8/8.1? idk -->
+    <RuntimeIdentifiers Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifier>
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -33,8 +43,6 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
-    <NET6_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))</NET6_0_OR_GREATER>
-    <NET7_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))</NET7_0_OR_GREATER>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -72,10 +80,6 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(NET6_0_OR_GREATER)' == 'true'">
-    <!-- If framework supports Windows 7 SP1, build x86 executable for compatibility -->
-    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
-    <!-- else, Windows 10 or later; Windows 8/8.1? idk -->
-    <RuntimeIdentifier Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifier>
     <PublishSingleFile>true</PublishSingleFile>
     <!-- Setting RuntimeIdentifier also sets SelfContained to true by default. -->
     <EnableCompressionInSingleFile>$(PublishSelfContained)</EnableCompressionInSingleFile>
@@ -83,8 +87,8 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(PublishSingleFile)' == 'true'">
-    <EnableCompressionInSingleFile>$(NET6_0_OR_GREATER)</EnableCompressionInSingleFile>
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
   </PropertyGroup>
 
   <ItemGroup> <!-- Misc Project Items -->
