@@ -64,9 +64,9 @@ namespace SPV3
               // if i == 0, the log file will be "exceptions.log"; set the number to 1
               // otherwise, increment the log number
               var destination = i == 0
-                  ? Paths.Exception.Replace(".log", ".1.log")
-                  : Paths.Exception.Replace($".{i}.log", $".{i + 1}.log");
-              Move(path, destination);
+                  ? path.Replace(".log", ".1.log")
+                  : path.Replace($".{i}.log", $".{i + 1}.log");
+              ((HXE.File)path).Move(destination);
             }
           }
         }
