@@ -37,56 +37,51 @@ namespace SPV3
     public class VersionUpstream : INotifyPropertyChanged
     {
       private const string Latest = "https://github.com/HaloSPV3/HCE/raw/meta/latest.xml";
-      private string _address = string.Empty;
-      private string _content = string.Empty;
-      private System.Version _version = new();
-
-      private Visibility _visibility = Visibility.Collapsed;
 
       public Visibility Visibility
       {
-        get => _visibility;
+        get;
         set
         {
-          if (value == _visibility) return;
-          _visibility = value;
+          if (value == field) return;
+          field = value;
           OnPropertyChanged();
         }
-      }
+      } = Visibility.Collapsed;
 
       public string Content
       {
-        get => _content;
+        get;
         set
         {
-          if (value == _content) return;
-          _content = value;
+          if (value == field) return;
+          field = value;
           OnPropertyChanged();
         }
-      }
+      } = string.Empty;
 
       public string Address
       {
-        get => _address;
+        get;
         set
         {
-          if (value == _address) return;
-          _address = value;
+          if (value == field) return;
+          field = value;
           OnPropertyChanged();
         }
-      }
+      } = string.Empty;
 
       // TODO: rename to NewVersion
       public System.Version Version
       {
-        get => _version;
+        get;
         set
         {
-          if (value == _version) return;
-          _version = value;
+          if (value == field) return;
+          field = value;
           OnPropertyChanged();
         }
-      }
+      } = new();
 
       public event PropertyChangedEventHandler? PropertyChanged;
 
