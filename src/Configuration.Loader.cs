@@ -19,6 +19,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -403,7 +404,7 @@ namespace SPV3
             ms.CopyTo(fs);
           }
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
           var log = (HXE.File)Paths.Exception;
           log.AppendAllText("The Loader could not save settings.\n Error: " + e + "\n");
@@ -465,7 +466,7 @@ namespace SPV3
             return this;
           }
         }
-        catch (System.Exception e)
+        catch (Exception e)
         {
           var log = (HXE.File)Paths.Exception;
           log.AppendAllText("Failed to load Loader settings.\n Error: " + e + "\n");
