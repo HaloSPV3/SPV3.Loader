@@ -144,8 +144,12 @@ namespace SPV3
         {
           if (!System.IO.File.Exists(Shaders_GB) || !System.IO.File.Exists(Shaders_PP))
           {
+            var msg = "OpenSauce was not installed properly. Some gameplay features won't work as intended.";
+            var log = (HXE.File)Paths.Exception;
+            HXE.Console.Warn(msg);
+            log.AppendAllText(msg + "\n");
             _ = MessageBox.Show(
-                messageBoxText: "OpenSauce was not installed properly. Some gameplay features won't work as intended.",
+                messageBoxText: msg,
                 caption: "WARNING",
                 MessageBoxButton.OK, MessageBoxImage.Warning, MessageBoxResult.OK);
             return false;
@@ -153,9 +157,10 @@ namespace SPV3
         }
         catch (Exception e)
         {
-          string msg = "An exception was thrown while checking for OpenSauce GBuffer availability." + e.ToString();
+          var log = (HXE.File)Paths.Exception;
+          string msg = "An exception was thrown while checking for OpenSauce GBuffer availability." + e;
           HXE.Console.Error(msg);
-          new HXE.File { Path = Paths.Exception }.AppendAllText(msg);
+          log.AppendAllText(msg + "\n");
           return false;
         }
 
