@@ -80,8 +80,24 @@ namespace SPV3
           if (value == field) return;
           field = value;
           OnPropertyChanged();
+          UpdateGitChangeLogUrl();
         }
       } = new();
+
+      /// <summary>
+      /// "https://github.com/HaloSPV3/SPV3.Loader/blob/main/CHANGELOG.md" -OR-<br/>
+      /// "https://github.com/HaloSPV3/SPV3.Loader/blob/develop/CHANGELOG.md"
+      ///  </summary>
+      public string GitChangeLogUrl
+      {
+        get;
+        private set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+        }
+      } = "https://github.com/HaloSPV3/SPV3.Loader/blob/develop/CHANGELOG.md";
 
       public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -138,6 +154,8 @@ namespace SPV3
             Client.Timeout = (TimeSpan)oldTimeout;
         }
       }
+
+      private void UpdateGitChangeLogUrl() => GitChangeLogUrl = "https://github.com/HaloSPV3/SPV3.Loader/blob/main/CHANGELOG.md";
 
       [NotifyPropertyChangedInvocator]
       protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

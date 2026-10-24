@@ -79,6 +79,7 @@
 		<Label Margin="0,1,0,0"
 					 Visibility="{Binding Upstream.Visibility}"
 					 Content="View latest change log"
+					 ToolTip="{Binding Upstream.GitChangeLogUrl}"
 					 HorizontalContentAlignment="Center"
 					 MouseLeftButtonUp="Changelog">
 			<Label.Style>
