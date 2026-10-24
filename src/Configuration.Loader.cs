@@ -407,7 +407,9 @@ namespace SPV3
         catch (Exception e)
         {
           var log = (HXE.File)Paths.Exception;
-          log.AppendAllText("The Loader could not save settings.\n Error: " + e + "\n");
+          var msg = "The Loader could not save settings.\n Error: " + e;
+          HXE.Console.Error(msg);
+          log.AppendAllText(msg + "\n");
         }
       }
 
@@ -469,7 +471,9 @@ namespace SPV3
         catch (Exception e)
         {
           var log = (HXE.File)Paths.Exception;
-          log.AppendAllText("Failed to load Loader settings.\n Error: " + e + "\n");
+          var msg = "Failed to load Loader settings.\n Error: " + e;
+          HXE.Console.Error(msg);
+          log.AppendAllText(msg + "\n");
           return this;
         }
       }
