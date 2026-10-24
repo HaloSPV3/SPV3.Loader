@@ -81,6 +81,8 @@
 
   <PropertyGroup Condition="'$(NET6_0_OR_GREATER)' == 'true'">
     <PublishSingleFile>true</PublishSingleFile>
+    <PublishSelfContained>true</PublishSelfContained>
+    <SelfContained>$(PublishSelfContained)</SelfContained>
     <!-- Setting RuntimeIdentifier also sets SelfContained to true by default. -->
     <EnableCompressionInSingleFile>$(PublishSelfContained)</EnableCompressionInSingleFile>
     <PublishTrimmed>$('$(UseWPF)' != 'true' AND '$(UseWindowsForms)' != 'true')</PublishTrimmed>
@@ -150,8 +152,8 @@
   <ItemGroup Label="References">
     <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'"
       Include="$(MSBuildProjectDirectory)/../ext/hxe/src/HXE.csproj"
-      Private="true">
-      <Properties>SelfContained=false</Properties>
+      Private="true" SetSelfContained="$(SelfContained)">
+      <Properties>SelfContained=$(SelfContained)</Properties>
       <Name>HXE</Name>
     </ProjectReference>
     <ProjectReference Include="$(MSBuildProjectDirectory)/../ext/HCE.DRP/src/DRP.nativeproj"
