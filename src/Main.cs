@@ -148,7 +148,8 @@ namespace SPV3
 
     private void Exception(Exception e, string description)
     {
-      AppendAllText(Paths.Exception, e.ToString() + "\n");
+      var log = (HXE.File)Paths.Exception;
+      log.AppendAllText(e + "\n");
 
       Error.Visibility = Visibility.Visible;
       Error.Content = $"{description}: {e.Message.ToLower()}\n\nClick here for more information.";
