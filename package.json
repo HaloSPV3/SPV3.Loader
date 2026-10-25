@@ -21,7 +21,7 @@
     "publish": "dotnet restore src -t:PublishAll",
     "release": "semantic-release --debug",
     "restore": "dotnet restore && dotnet restore -p:Configuration=Release",
-    "sdks": "yarn dlx @yarnpkg/sdks",
+    "sdks": "yarn dlx @yarnpkg/sdks@2",
     "test": "dotnet test"
   },
   "homepage": "https://github.com/HaloSPV3/SPV3.Loader#readme",
