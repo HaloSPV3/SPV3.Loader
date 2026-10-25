@@ -4,9 +4,10 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <Prefer32Bit>false</Prefer32Bit>
     <!-- If TargetFramework and/or RuntimeIdentifiers are changed,
-     you must also update the `githubReleaseAssetHint` in file://./../.releaserc.ts -->
+     you must also update the `githubReleaseAssetHint` in file://./../.releaserc.ts
+     todo: drop net6.0-windows; net480 will suffice for Windows 7 support -->
+     <!-- todo: net10.0 + Avalonia -->
     <TargetFrameworks>net480;net6.0-windows</TargetFrameworks>
-    <!-- todo: net10.0 + Avalonia -->
     <!-- <TargetFrameworks Condition="'$(Configuration)' == Debug">$(TargetFrameworks);net10.0-windows</TargetFrameworks> -->
 
     <NET6_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))</NET6_0_OR_GREATER>
