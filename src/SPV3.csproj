@@ -72,7 +72,6 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageIconUrl>https://github.com/HaloSPV3/SPV3.Loader/blob/main/src/Assets/logo.png</PackageIconUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseUrl>https://github.com/HaloSPV3/SPV3.Loader/blob/main/COPYRIGHT</PackageLicenseUrl>
     <PackageLicenseExpression>Zlib</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/HaloSPV3/SPV3.Loader</PackageProjectUrl>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
