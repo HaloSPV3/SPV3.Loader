@@ -19,12 +19,15 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[3.0.1, )",
-        "resolved": "3.0.1",
-        "contentHash": "0NDbFQmDEgcC0q+52wOEMSLkt1MVWjdnIeaJd4hYG+wW0UudHuHsgv3Q/s7Uc6pLj3Tk5lkN0Dlxz5KZ2XDfyA==",
+        "requested": "[3.1.0, )",
+        "resolved": "3.1.0",
+        "contentHash": "lyQGrcOeksUxPjDFQ4MMzhGZdITgTzcu8e8DwCWlXfWZm5FnSUknPU+q5oDGoSbl1dlRfgqJqLH/Db6w58Cz1w==",
         "dependencies": {
+          "BinToss.XmlSourceGenerator": "2.0.1",
+          "BinToss.XmlSourceGenerator.Abstractions": "2.0.1",
+          "StandardSocketsHttpHandler": "2.2.0.10",
           "System.Memory": "4.6.3",
-          "System.Text.Json": "10.0.12"
+          "System.Text.Json": "10.0.13"
         }
       },
       "MahApps.Metro": {
@@ -96,6 +99,19 @@
           "System.ValueTuple": "4.6.2"
         }
       },
+      "BinToss.XmlSourceGenerator": {
+        "type": "Transitive",
+        "resolved": "2.0.1",
+        "contentHash": "bzX09wnW3zz/t+iCs+yrfiLwa198wYt5bdG21hLHiaEtYDHuyYzzRyoLwh6u4BkJlcF5Hzv6hxVVhb9gdRsDEg=="
+      },
+      "BinToss.XmlSourceGenerator.Abstractions": {
+        "type": "Transitive",
+        "resolved": "2.0.1",
+        "contentHash": "48eQcciijv8h8NX4/Y92gSU0c2q0y2SWNf02/DvmECDBFI2XO4e4Ct4bEA5m9KT+f3G099Ywf4CqUf83NJMlZA==",
+        "dependencies": {
+          "System.Text.Json": "10.0.13"
+        }
+      },
       "ControlzEx": {
         "type": "Transitive",
         "resolved": "4.4.0",
@@ -144,6 +160,14 @@
         "type": "Transitive",
         "resolved": "1.1.19",
         "contentHash": "5sPWkbqImc2t1aQwIfJcKsUo7tOg1Tr8+6xVzZJB56Nzt4u9NlpcLofgdX/aRYpPKdWDA3U23Akw1KQzU5e82g=="
+      },
+      "StandardSocketsHttpHandler": {
+        "type": "Transitive",
+        "resolved": "2.2.0.10",
+        "contentHash": "tlnMfWuT043rvyVQTGCm9049SZcDpe9oeLwLTVWRLw0s5ijjCdNYdxfOCMejtsUBFdWQ00boZSJHcNB2GZKBCw==",
+        "dependencies": {
+          "System.Memory": "4.5.1"
+        }
       },
       "System.Buffers": {
         "type": "Transitive",
@@ -214,9 +238,13 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[3.0.1, )",
-        "resolved": "3.0.1",
-        "contentHash": "0NDbFQmDEgcC0q+52wOEMSLkt1MVWjdnIeaJd4hYG+wW0UudHuHsgv3Q/s7Uc6pLj3Tk5lkN0Dlxz5KZ2XDfyA=="
+        "requested": "[3.1.0, )",
+        "resolved": "3.1.0",
+        "contentHash": "lyQGrcOeksUxPjDFQ4MMzhGZdITgTzcu8e8DwCWlXfWZm5FnSUknPU+q5oDGoSbl1dlRfgqJqLH/Db6w58Cz1w==",
+        "dependencies": {
+          "BinToss.XmlSourceGenerator": "2.0.1",
+          "BinToss.XmlSourceGenerator.Abstractions": "2.0.1"
+        }
       },
       "MahApps.Metro": {
         "type": "Direct",
@@ -271,6 +299,16 @@
         "dependencies": {
           "Microsoft.Extensions.Primitives": "5.0.1"
         }
+      },
+      "BinToss.XmlSourceGenerator": {
+        "type": "Transitive",
+        "resolved": "2.0.1",
+        "contentHash": "bzX09wnW3zz/t+iCs+yrfiLwa198wYt5bdG21hLHiaEtYDHuyYzzRyoLwh6u4BkJlcF5Hzv6hxVVhb9gdRsDEg=="
+      },
+      "BinToss.XmlSourceGenerator.Abstractions": {
+        "type": "Transitive",
+        "resolved": "2.0.1",
+        "contentHash": "48eQcciijv8h8NX4/Y92gSU0c2q0y2SWNf02/DvmECDBFI2XO4e4Ct4bEA5m9KT+f3G099Ywf4CqUf83NJMlZA=="
       },
       "ControlzEx": {
         "type": "Transitive",
