@@ -2,7 +2,7 @@
   <Folder Name="/HXE/">
     <Project Path="ext/hxe/src/HXE.csproj" />
     <Project Path="ext/hxe/tests/HXE.Tests/HXE.Tests.csproj">
-      <BuildDependency Project="ext/hxe/src/HXE.csproj"/>
+      <BuildDependency Project="ext/hxe/src/HXE.csproj" />
     </Project>
   </Folder>
   <Folder Name="/HXE/XmlSourceGenerator/">
