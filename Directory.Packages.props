@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NeedsSystemTextJsonPackage>$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', 'netstandard|net4'))</NeedsSystemTextJsonPackage>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="GitVersion.MsBuild" Version="6.8.2" />
+    <PackageVersion Include="HXE" Version="3.1.2" />
+    <PackageVersion Include="MahApps.Metro" Version="2.4.11" />
+    <PackageVersion Include="Meziantou.Polyfill" Version="1.0.157" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="5.0.1" />
+    <PackageVersion Include="Roslynator.CodeFixes" Version="5.0.1" />
+    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="5.0.1" />
+    <PackageVersion Include="Semver" Version="3.0.0" />
+
+    <PackageVersion Include="Costura.Fody" Version="6.2.0" />
+    <PackageVersion Include="System.Text.Json" Version="10.0.13" />
+  </ItemGroup>
+</Project>

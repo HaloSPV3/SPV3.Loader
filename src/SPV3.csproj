@@ -161,27 +161,27 @@
       Name="HCE.DRP" ReferenceOutputAssembly="false" Private="true"
       SetConfiguration="Configuration=Release"
       Condition="'$(UseBleedingEdgeHceDrp)' == true" />
-    <PackageReference Include="GitVersion.MsBuild" Version="6.8.2">
+    <PackageReference Include="GitVersion.MsBuild">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Condition="'$(EnableBleedingEdgeHXE)' != 'true'"
-      Include="HXE" Version="3.1.2" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.11" />
-    <PackageReference Include="Meziantou.Polyfill" Version="1.0.157">
+      Include="HXE" />
+    <PackageReference Include="MahApps.Metro" />
+    <PackageReference Include="Meziantou.Polyfill">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Roslynator.Analyzers" Version="5.0.1" PrivateAssets="all">
+    <PackageReference Include="Roslynator.Analyzers" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Roslynator.CodeFixes" Version="5.0.1" PrivateAssets="all">
+    <PackageReference Include="Roslynator.CodeFixes" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Roslynator.Formatting.Analyzers" Version="5.0.1" PrivateAssets="all">
+    <PackageReference Include="Roslynator.Formatting.Analyzers" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Semver" Version="3.0.0" />
+    <PackageReference Include="Semver" />
   </ItemGroup>
 
   <Choose>
@@ -198,8 +198,8 @@
         </WeaverConfiguration>
       </PropertyGroup>
       <ItemGroup Label="Additional References (NET4)">
-        <PackageReference Include="Costura.Fody" Version="6.2.0" PrivateAssets="all" />
-        <PackageReference Include="System.Text.Json" Version="10.0.13" />
+        <PackageReference Include="Costura.Fody" PrivateAssets="all" />
+        <PackageReference Include="System.Text.Json" />
         <Reference Include="System.Net.Http" Version="4.2.0.0" Culture="neutral" PublicKeyToken="b03f5f7f11d50a3a" />
       </ItemGroup>
     </When>

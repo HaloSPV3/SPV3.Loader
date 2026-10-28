@@ -11,13 +11,13 @@
 
   <ItemGroup>
     <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'" Include="../../ext/hxe/src/HXE.csproj" Private="true" />
-    <PackageReference Condition="'$(EnableBleedingEdgeHXE)' != 'true'" Include="HXE" Version="3.1.2" />
-    
-    <PackageReference Include="GitVersion.MsBuild" Version="6.8.2">
+    <PackageReference Condition="'$(EnableBleedingEdgeHXE)' != 'true'" Include="HXE" />
+
+    <PackageReference Include="GitVersion.MsBuild">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="SemVer" Version="3.0.0" />
+    <PackageReference Include="SemVer" />
 
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
 
