@@ -331,8 +331,7 @@ namespace SPV3
           if (clientVersion == latestVersion)
           {
             Content = "Up-to-date!";
-            LogInfo("Current version is greater than or equal to latest release.\n" +
-                    new System.Diagnostics.StackTrace());
+            LogInfo("Current version is greater than or equal to latest release.");
             Visibility = Visibility.Collapsed;
             Address = "https://github.com/HaloSPV3/SPV3.Loader/releases/tag/v" + GitVersionInformation.FullSemVer;
             return;
