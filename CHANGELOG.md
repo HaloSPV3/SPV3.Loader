@@ -1,3 +1,9 @@
+## [2.3.0-alpha.5](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.4...v2.3.0-alpha.5) (2026-10-28)
+
+### Bug Fixes
+
+* **deps:** do not upgrade System.Text.Json in .NET 6 builds ([ddb741f](https://github.com/HaloSPV3/SPV3.Loader/commit/ddb741fb3061844dce5ae60d581dfc261c55c9b2))
+
 ## [2.3.0-alpha.4](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.3...v2.3.0-alpha.4) (2026-10-28)
 
 ### Features
