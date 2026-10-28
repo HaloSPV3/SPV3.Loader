@@ -294,7 +294,7 @@ namespace SPV3
           }
 
           var clientVersion = SemVersion.Parse(GitVersionInformation.FullSemVer, SemVersionStyles.Strict);
-          var latestVersion = clientVersion;
+          var latestVersion = new SemVersion(0);
           var latestRelease = filteredReleases[0];
 
           foreach (var release in filteredReleases)
@@ -328,7 +328,7 @@ namespace SPV3
           );
           SemVersion = latestVersion;
 
-          if (clientVersion == latestVersion)
+          if (clientVersion.CompareSortOrderTo(latestVersion) >= 0)
           {
             Content = "Up-to-date!";
             LogInfo("Current version is greater than or equal to latest release.");

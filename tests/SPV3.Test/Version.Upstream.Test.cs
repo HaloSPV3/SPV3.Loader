@@ -35,12 +35,17 @@ public sealed class TestVersionUpstream
       Assert.IsGreaterThanOrEqualTo(version.Minor, upstreamVersion.SemVersion.Minor);
       Assert.IsGreaterThanOrEqualTo(version.Patch, upstreamVersion.SemVersion.Patch);
 
-      var versionPre = version.PrereleaseIdentifiers.FirstOrDefault(v => v.NumericValue != null);
-      var upVersionPre = upstreamVersion.SemVersion.PrereleaseIdentifiers.FirstOrDefault(v => v.NumericValue != null);
-      Assert.IsGreaterThan(
-        versionPre,
-        upVersionPre
-      );
+      if (version.Major == upstreamVersion.SemVersion.Major
+          && version.Minor == upstreamVersion.SemVersion.Minor
+          && version.Patch == upstreamVersion.SemVersion.Patch)
+      {
+        var versionPre = version.PrereleaseIdentifiers.FirstOrDefault(v => v.NumericValue != null);
+        var upVersionPre = upstreamVersion.SemVersion.PrereleaseIdentifiers.FirstOrDefault(v => v.NumericValue != null);
+        Assert.IsGreaterThan(
+          upVersionPre,
+          versionPre
+        );
+      }
     }
   }
 }
