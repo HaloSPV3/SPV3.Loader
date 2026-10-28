@@ -1,4 +1,6 @@
-﻿using static System.IO.File;
+﻿using System;
+using System.Collections.Generic;
+using static System.IO.File;
 using KernelConf = HXE.Kernel.Configuration;
 using LoaderConf = SPV3.Configuration.ConfigurationLoader;
 
@@ -11,6 +13,9 @@ namespace SPV3
   {
     public static KernelConf hxe = new KernelConf(Paths.Kernel);
     public static LoaderConf spv3 = new LoaderConf();
+
+    public static event EventHandler? ConfigChanged;
+
 
     /**
      * Available HXE kernel modes.
@@ -87,9 +92,11 @@ namespace SPV3
 
     public static void Load()
     {
+      // todo: diff old and new configs for ConfigChanged event args
       hxe.Load();
       spv3.Load();
       CopyLoaderToKernel();
+      ConfigChanged?.Invoke(nameof(Load), EventArgs.Empty);
     }
 
     /// <summary>
@@ -98,9 +105,11 @@ namespace SPV3
     /// </summary>
     public static void Save()
     {
+      // todo: diff old and new configs for ConfigChanged event args
       CopyLoaderToKernel();
       spv3.Save();
       hxe.Save();
+      ConfigChanged?.Invoke(nameof(Save), EventArgs.Empty);
     }
   }
 }

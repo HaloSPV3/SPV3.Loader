@@ -56,3 +56,6 @@ jobs:
 
       - name: Publish (Release)
         run: dotnet restore src -t:PublishAll
+
+      - name: Test
+        run: dotnet test tests/SPV3.Test/SPV3.Test.csproj

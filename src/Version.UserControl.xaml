@@ -54,6 +54,7 @@
 		<Label Margin="0,10,0,0"
 					 Visibility="{Binding Upstream.Visibility}"
 					 Content="{Binding Upstream.Content}"
+					 ToolTip="{Binding Upstream.Tooltip}"
 					 HorizontalContentAlignment="Center"
 					 MouseLeftButtonUp="Upstream">
 			<Label.Style>

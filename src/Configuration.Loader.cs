@@ -293,6 +293,19 @@ namespace SPV3
         }
       }
 
+      /// <summary>If `true`, <see cref="Version.VersionUpstream"/> also checks for pre-release updates</summary>
+      public bool AllowPrereleaseUpdates
+      {
+        get;
+        set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+        }
+      }
+
+      // todo: get screen number + monitor model; clip to max character count; replace last 3 visible character with ellipses; In tooltip, show monitor's GPU, resolution, and refresh rate
       public static List<string> Adapters => AllScreens
         .Select
         (
@@ -400,6 +413,8 @@ namespace SPV3
               bw.Write(ResolutionEnabled);
             }
 
+            bw.Write(AllowPrereleaseUpdates);
+
             ms.Position = 0;
             ms.CopyTo(fs);
           }
@@ -465,6 +480,9 @@ namespace SPV3
               DisplayMode = br.ReadByte();
               ResolutionEnabled = br.ReadBoolean();
             }
+
+            AllowPrereleaseUpdates = br.ReadBoolean();
+
             return this;
           }
         }

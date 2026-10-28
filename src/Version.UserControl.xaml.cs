@@ -31,8 +31,6 @@ namespace SPV3
   {
     private readonly Version _version;
 
-    private ProcessStartInfo _startInfo => new ProcessStartInfo(_version.Assembly.Address) { UseShellExecute = true };
-
     public Version_UserControl()
     {
       InitializeComponent();
@@ -44,7 +42,7 @@ namespace SPV3
 
     private void Assembly(object? sender, MouseButtonEventArgs e)
     {
-      Process.Start(_startInfo);
+      Process.Start(new ProcessStartInfo(_version.Assembly.Address) { UseShellExecute = true });
     }
 
     private async void Upstream(object? sender, MouseButtonEventArgs e)
@@ -54,7 +52,7 @@ namespace SPV3
       await Task.Run(() =>
       {
         Thread.Sleep(2500);
-        Process.Start(_startInfo);
+        Process.Start(new ProcessStartInfo(_version.Upstream.Address) { UseShellExecute = true });
         Process.Start(Environment.CurrentDirectory);
       });
 
