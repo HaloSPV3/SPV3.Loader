@@ -19,9 +19,9 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[3.1.0, )",
-        "resolved": "3.1.0",
-        "contentHash": "lyQGrcOeksUxPjDFQ4MMzhGZdITgTzcu8e8DwCWlXfWZm5FnSUknPU+q5oDGoSbl1dlRfgqJqLH/Db6w58Cz1w==",
+        "requested": "[3.1.2, )",
+        "resolved": "3.1.2",
+        "contentHash": "uiGAhLcDOXZ8rjmLO8iJtxIpGfvARLF5p9YijRgbIiBzDj2Q5OgTZpkgr2G68dWTdC25CC+vOLCedPt9gDmLbw==",
         "dependencies": {
           "BinToss.XmlSourceGenerator": "2.0.1",
           "BinToss.XmlSourceGenerator.Abstractions": "2.0.1",
@@ -238,9 +238,9 @@
       },
       "HXE": {
         "type": "Direct",
-        "requested": "[3.1.0, )",
-        "resolved": "3.1.0",
-        "contentHash": "lyQGrcOeksUxPjDFQ4MMzhGZdITgTzcu8e8DwCWlXfWZm5FnSUknPU+q5oDGoSbl1dlRfgqJqLH/Db6w58Cz1w==",
+        "requested": "[3.1.2, )",
+        "resolved": "3.1.2",
+        "contentHash": "uiGAhLcDOXZ8rjmLO8iJtxIpGfvARLF5p9YijRgbIiBzDj2Q5OgTZpkgr2G68dWTdC25CC+vOLCedPt9gDmLbw==",
         "dependencies": {
           "BinToss.XmlSourceGenerator": "2.0.1",
           "BinToss.XmlSourceGenerator.Abstractions": "2.0.1"
