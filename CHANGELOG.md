@@ -1,3 +1,30 @@
+## [2.3.0-alpha.4](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.3...v2.3.0-alpha.4) (2026-10-28)
+
+### Features
+
+* **Configuration:** add `AllowPreReleaseUpdates` (default: false) to check for SPV3.Loader pre-release updates; fix "Upstream version" button opening wrong URL ([d918213](https://github.com/HaloSPV3/SPV3.Loader/commit/d9182134b284756cb7d804aa757c11d714240567))
+
+### Bug Fixes
+
+* add fallback font families for Wine users ([f6eff1c](https://github.com/HaloSPV3/SPV3.Loader/commit/f6eff1ce4522ab3ff805e88754fb9acfb2f537d0))
+* change assembly name (and filename) back to `SPV3` ([903ac06](https://github.com/HaloSPV3/SPV3.Loader/commit/903ac06ad4d24f2c96f05e609721ba3fdf041592))
+* **Compile:** adjust file/console logging for consistency ([1742f3a](https://github.com/HaloSPV3/SPV3.Loader/commit/1742f3af2cb6a38fe90c02269a1fba5d86a90eb9))
+* **Configuration:** log Loader Configuration `Load()` errors to console, too ([2cd2bad](https://github.com/HaloSPV3/SPV3.Loader/commit/2cd2bada68e9e8b6740d0afdc2e1cbe2540590c6))
+* **Configuration:** log warning to console when OpenSauce is not installed properly ([47c1ece](https://github.com/HaloSPV3/SPV3.Loader/commit/47c1ece731cb31708468d2af17b08f142f3048df))
+* **deps:** bump HXE to `aed3780` ([54838eb](https://github.com/HaloSPV3/SPV3.Loader/commit/54838ebc2ec11b058d489e2a76d07f680e5c8039))
+* **deps:** upgrade HXE to 3.0.1 ([99fac5d](https://github.com/HaloSPV3/SPV3.Loader/commit/99fac5d910483599e4af26a7166d833bee1f0b90))
+* **deps:** upgrade HXE to 3.1.2 ([ca24ddb](https://github.com/HaloSPV3/SPV3.Loader/commit/ca24ddb9f7e29b4699de35c4bdf5809b2c922309))
+* **deps:** upgrade HXE to v3.1.0 ([6523414](https://github.com/HaloSPV3/SPV3.Loader/commit/65234149b74bd34ced242a875aa3b1f8de0d72c1))
+* **deps:** upgrade MahApps.Metro to v2.4.11 ([8fd4d9f](https://github.com/HaloSPV3/SPV3.Loader/commit/8fd4d9fac5400babe297909df7061fb2b57de157))
+* **deps:** upgrade System.Text.Json to 10.0.12 ([52a5113](https://github.com/HaloSPV3/SPV3.Loader/commit/52a511344d081e4fd678e259427d03542a791fd8))
+* **deps:** upgrade System.Text.Json to v10.0.13 ([d40d0e5](https://github.com/HaloSPV3/SPV3.Loader/commit/d40d0e5dcb1b6d3b66619410af0a0d6d633bb276))
+* **Install:** adjust file/console logging for consistency ([d13aae9](https://github.com/HaloSPV3/SPV3.Loader/commit/d13aae911845af26485c90a8c5a8e0e77822bc90))
+* **Install:** do not overwrite the installer's current log file in `Install.Initialise()` ([7fd92a3](https://github.com/HaloSPV3/SPV3.Loader/commit/7fd92a35856d8f8304e36f36d9ebaceebd1d5320))
+* **Main:** rotate exception.log files to exception.2.log and greater ([9c15426](https://github.com/HaloSPV3/SPV3.Loader/commit/9c15426496468f2c88cac7ea12995ded4813272f))
+* rotate exception.log so old logs are not immediately lost ([a1502ff](https://github.com/HaloSPV3/SPV3.Loader/commit/a1502ff048d4474f86b7bcfad336236b8d69bb79))
+* **Version:** change Changelog URL to CHANGELOG.md on `main` branch ([fa4f134](https://github.com/HaloSPV3/SPV3.Loader/commit/fa4f134c80e81005b9cc0fcf2781779b43ffe5e7))
+* **Version:** use current GitVersionInformation.FullSemVer when opening release-tag comparison (GitHub git log) ([2439643](https://github.com/HaloSPV3/SPV3.Loader/commit/2439643873c6ea2c06441af9332c006559b22279))
+
 ## [2.3.0-alpha.3](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.2...v2.3.0-alpha.3) (2026-09-04)
 
 ### Features
