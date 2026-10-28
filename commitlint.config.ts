@@ -1,4 +1,5 @@
 import hceShared from '@halospv3/hce.shared-config/commitlintConfig';
+import { RuleConfigSeverity } from '@commitlint/types';
 
 const scopes = {
   AmaiSosu: 'src/AmaiSosu.cs',
@@ -37,7 +38,7 @@ const scopes = {
 };
 
 hceShared.rules['scope-enum'] = [
-  2,
+  RuleConfigSeverity.Error,
   'always',
   Reflect.ownKeys(scopes)
     .map(key => String(key)),
