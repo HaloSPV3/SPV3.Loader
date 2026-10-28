@@ -19,9 +19,11 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Semver;
 using SPV3.Annotations;
 
 namespace SPV3
@@ -69,6 +71,7 @@ namespace SPV3
         }
       }
 
+      [Obsolete($"Superseded by {nameof(SemVersion)}")]
       public System.Version Version
       {
         get => _version;
@@ -80,11 +83,31 @@ namespace SPV3
         }
       }
 
+      public SemVersion SemVersion
+      {
+        get;
+        set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+        }
+      } = new(0);
+
       public event PropertyChangedEventHandler? PropertyChanged;
 
       public void Initialise()
       {
+        {
+          if (SemVersion.Major == 0)
+            SemVersion = SemVersion.TryParse(GitVersionInformation.FullSemVer, out var semResult)
+              ? semResult
+              : new(0);
+        }
+
+#pragma warning disable CS0618 // Type or member is obsolete
         Version = System.Version.TryParse(GitVersionInformation.AssemblySemVer, out var result)
+#pragma warning restore CS0618 // Type or member is obsolete
           ? result
           : new();
         Content = $"Version {GitVersionInformation.FullSemVer}-{GitVersionInformation.ShortSha.ToUpper()}";
