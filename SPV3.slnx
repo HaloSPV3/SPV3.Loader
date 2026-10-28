@@ -12,4 +12,9 @@
   <Project Path="src/SPV3.csproj">
     <BuildDependency Project="ext/hxe/src/HXE.csproj" />
   </Project>
+  <Folder Name="/tests/">
+    <Project Path="tests/SPV3.Test/SPV3.Test.csproj">
+      <BuildDependency Project="src/SPV3.csproj" />
+    </Project>
+  </Folder>
 </Solution>
