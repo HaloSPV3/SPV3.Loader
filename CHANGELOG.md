@@ -1,3 +1,13 @@
+## [2.3.0-alpha.6](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.5...v2.3.0-alpha.6) (2026-10-29)
+
+### Features
+
+* **Version:** add `VersionAssembly.SemVersion`; deprecate `VersionAssembly.Version` ([0db9e3a](https://github.com/HaloSPV3/SPV3.Loader/commit/0db9e3a7f40d451aedcb4c703e4ea4ac2c73a736))
+
+### Bug Fixes
+
+* **Install:** patch DRM even for Custom Edition owners ([203ad97](https://github.com/HaloSPV3/SPV3.Loader/commit/203ad974131419bd0fe553f3af4eeeb351961d1c))
+
 ## [2.3.0-alpha.5](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.4...v2.3.0-alpha.5) (2026-10-28)
 
 ### Bug Fixes
