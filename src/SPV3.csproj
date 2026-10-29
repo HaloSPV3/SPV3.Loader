@@ -292,4 +292,11 @@
       SigningTarget="@(DeployManifest)" />
 
   </Target>
+
+  <Target Name="RenamePublishZip" AfterTargets="ZipPublishDir" Condition="'$(AssemblyName)' == 'SPV3'">
+    <PropertyGroup>
+      <DestinationFullPath>$([System.Text.RegularExpressions.Regex]::Replace("$(DestinationFile)", "([\\/])SPV3$(ZPDJoinArgsSeparator)([^\\/]+)", "$1SPV3.Loader$(ZPDJoinArgsSeparator)$2", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</DestinationFullPath>
+    </PropertyGroup>
+    <Move SourceFiles="$(DestinationFile)" DestinationFiles="$(DestinationFullPath)" />
+  </Target>
 </Project>
