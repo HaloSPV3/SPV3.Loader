@@ -95,7 +95,7 @@ const github = config.plugins?.find<PluginSpecSRGithub>(
 if (github) {
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   github[1] ??= {} as PluginSpecSRGithub[1];
-  github[1].releaseBodyTemplate = `${githubReleaseAssetHint}
+  github[1].releaseBodyTemplate = `<%= nextRelease.notes %>\n---\n${githubReleaseAssetHint}
   `;
 }
 
