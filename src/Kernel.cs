@@ -16,15 +16,17 @@ namespace SPV3
 
     public static event EventHandler? ConfigChanged;
 
-
     /**
      * Available HXE kernel modes.
      */
     public enum Mode
     {
-      HCE,   /* vanilla hce mode -- won't ever be used by SPV3        */
-      SPV32, /* <=SPV3.2 "Legacy" mode, without post-processing       */
-      SPV33  /* >=SPV3.3 mode, with post-processing and other goodies */
+      /// vanilla hce mode -- won't ever be used by SPV3
+      HCE,
+      /// <=SPV3.2 "Legacy" mode, without post-processing
+      SPV32,
+      /// >=SPV3.3 mode, with post-processing and other goodies
+      SPV33
     }
 
     /**

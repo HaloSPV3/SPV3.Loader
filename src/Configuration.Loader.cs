@@ -308,10 +308,9 @@ namespace SPV3
       // todo: get screen number + monitor model; clip to max character count; replace last 3 visible character with ellipses; In tooltip, show monitor's GPU, resolution, and refresh rate
       public static List<string> Adapters => AllScreens
         .Select
-        (
-          screen => screen.DeviceName
-            .Substring(4)
-            .Replace("DISPLAY", "Display ")
+        (screen => screen.DeviceName
+          .Substring(4)
+          .Replace("DISPLAY", "Display ")
         ).ToList();
 
       public event PropertyChangedEventHandler? PropertyChanged;
