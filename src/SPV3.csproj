@@ -44,6 +44,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
+
+    <ZPDJoinArgsSeparator>_</ZPDJoinArgsSeparator>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
