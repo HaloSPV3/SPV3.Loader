@@ -481,9 +481,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@halospv3/hce.shared-config@npm:^3.14.1":
-  version: 3.14.1
-  resolution: "@halospv3/hce.shared-config@npm:3.14.1"
+"@halospv3/hce.shared-config@npm:^3.14.2":
+  version: 3.14.2
+  resolution: "@halospv3/hce.shared-config@npm:3.14.2"
   dependencies:
     "@commitlint/config-conventional": "npm:^21.2.4"
     "@dotenvx/dotenvx": "npm:^1.75.1"
@@ -509,7 +509,7 @@ __metadata:
   peerDependencies:
     "@commitlint/types": ^20.0.0 || >= 20.0.0
     eslint: ^10.0.0
-  checksum: 10c0/732bf462c2728e24736c8226f328bc6e2c1a1b213bec0cdb9df52be947798673f6073cc4e60f8b396eb04320d04c82811a65e729209283520cb040036509b6f6
+  checksum: 10c0/d7935770fe0f4dcc627e22baa8bde9420787ca02f697f9dc295cad090cb4d72083969205f6ea06eed79c893efb92342053f4d74de924d1d7073ac14600e42ff0
   languageName: node
   linkType: hard
 
@@ -7422,7 +7422,7 @@ __metadata:
     "@eslint/js": "npm:^10.0.1"
     "@eslint/json": "npm:^2.1.1"
     "@eslint/markdown": "npm:^8.0.3"
-    "@halospv3/hce.shared-config": "npm:^3.14.1"
+    "@halospv3/hce.shared-config": "npm:^3.14.2"
     "@semantic-release/changelog": "npm:^7.0.0"
     "@semantic-release/commit-analyzer": "npm:^13.0.1"
     "@semantic-release/exec": "npm:^7.1.0"
