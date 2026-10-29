@@ -182,7 +182,7 @@ namespace SPV3
 
       ValidateTarget(Target);
 
-      /** Determine if the current environment fulfills the installation requirements. */
+      /* Determine if the current environment fulfills the installation requirements. */
       var manifest = (Manifest)Path.Combine(_source, HXE.Paths.Manifest);
 
       if (!manifest.Exists())
@@ -192,38 +192,34 @@ namespace SPV3
         return;
       }
 
-      /** Check Game Activation */
 
-      bool CustomActivated = Registry.GameActivated(Registry.Game.Custom);
-      bool RetailActivated = Registry.GameActivated(Registry.Game.Retail);
+      bool customActivated = false;
+      bool retailActivated = false;
 
-      /** If DRM Patch enabled, stop */
+      Activate(
+        "Free For All." + NewLine
+                        + "Halo SPV3 could¹ be played in Halo: The Master Chief Collection's free, Halo: CE Mod Tools." +
+                        NewLine
+                        + "¹with stripped down features or a lot of reverse-engineering to get them working"
+      );
+
+      /* If DRM Patch enabled, stop */
       if ((Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1)
       {
         outputInfo();
         return;
       }
 
-      /** If Custom Edition is already activated, stop. */
-      if (CustomActivated)
-      {
-        outputInfo();
-        return;
-      }
 
-      /** Activate SPV3 if Retail is installed, then stop */
-      if (RetailActivated)
+      /* If Custom Edition is already activated, stop. */
+      customActivated = Registry.GameActivated(Registry.Game.Custom);
+      retailActivated = Registry.GameActivated(Registry.Game.Retail);
+      if (!customActivated && retailActivated)
       {
+        /* Activate SPV3 if Retail is installed, then stop */
         Activate("Halo Retail located.");
-        outputInfo();
-        return;
       }
 
-      Activate(
-          "Free For All." + NewLine
-          + "Halo SPV3 could¹ be played in Halo: The Master Chief Collection's free, Halo: CE Mod Tools." + NewLine
-          + "¹with stripped down features or a lot of reverse-engineering to get them working"
-      );
       outputInfo();
       return;
 
@@ -232,8 +228,8 @@ namespace SPV3
         var file = (HXE.File)Paths.Install;
         string output =
           $"INFO -- DRM patch queued: {(Kernel.hxe.Tweaks.Patches & Patcher.EXEP.DISABLE_DRM_AND_KEY_CHECKS) == 1}{NewLine}" +
-          $"INFO -- Custom Edition is activated: {CustomActivated}{NewLine}" +
-          $"INFO -- Retail Edition is activated: {RetailActivated}{NewLine}" +
+          $"INFO -- Custom Edition is activated: {customActivated}{NewLine}" +
+          $"INFO -- Retail Edition is activated: {retailActivated}{NewLine}" +
           $"INFO -- CEA found: {Exists(Halo1Path)}";
         HXE.Console.Info(output);
         file.AppendAllText(output + NewLine);
