@@ -30,7 +30,7 @@
     "@eslint/js": "^10.0.1",
     "@eslint/json": "^2.1.1",
     "@eslint/markdown": "^8.0.3",
-    "@halospv3/hce.shared-config": "^3.13.1",
+    "@halospv3/hce.shared-config": "^3.14.1",
     "@semantic-release/changelog": "^7.0.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/exec": "^7.1.0",
