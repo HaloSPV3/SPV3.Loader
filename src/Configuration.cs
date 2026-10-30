@@ -1,4 +1,4 @@
-﻿/**
+﻿/*
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2021 Noah Sherwin
  *
