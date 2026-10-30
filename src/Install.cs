@@ -45,6 +45,7 @@ namespace SPV3
   public class Install : INotifyPropertyChanged
   {
     private const string _ssdRec = "SPV3 must be installed to an SSD. Otherwise, you will experience loading hitches.";
+    private const string _logMsgPrefix = $"[{nameof(SPV3)}.{nameof(Install)}] ";
     private readonly string _source = Path.Combine(CurrentDirectory, "data");
     private bool _canInstall;
     private bool _compress = false;
@@ -291,7 +292,7 @@ namespace SPV3
             catch (Exception e)
             {
               var msg = "Shortcut error.\n Error: " + e;
-              LogError(msg);
+              LogError(msg, nameof(Commit));
               Status = msg;
             }
           }
@@ -342,7 +343,7 @@ namespace SPV3
         catch (Exception e)
         {
           var msg = "Failed to install OpenSauce via Amai Sosu.\n Error: " + e;
-          LogError(msg);
+          LogError(msg, nameof(Commit));
           Status = msg;
         }
         finally
@@ -367,7 +368,7 @@ namespace SPV3
       catch (Exception e)
       {
         var msg = "Failed to install SPV3.\nError: " + e;
-        LogError(msg);
+        LogError(msg, nameof(Commit));
         Status = msg;
         CanInstall = true;
       }
@@ -404,7 +405,7 @@ namespace SPV3
             SteamStatus = "Failed to find CEA";
             var msg = SteamStatus + NewLine
                     + " Error: " + e.Message;
-            LogError(msg);
+            LogError(msg, nameof(CheckSteamPath));
             return;
           }
 
@@ -433,7 +434,7 @@ namespace SPV3
         WinStoreStatus = "Failed to find CEA on the drive";
         var msg = WinStoreStatus + NewLine
                 + " Error: Could not find CEA for Winstore on " + drive;
-        LogError(msg);
+        LogError(msg, nameof(CheckMCCWinStorePath));
       }
     }
 
@@ -482,7 +483,7 @@ namespace SPV3
       catch (Exception e)
       {
         var msg = "Installation not possible at selected path: " + path + "\n Error: " + e;
-        LogError(msg);
+        LogError(msg, nameof(ValidateTarget));
         Status = msg;
         CanInstall = false;
         return;
@@ -552,7 +553,7 @@ namespace SPV3
       catch (Exception e)
       {
         var msg = "Failed to get drive space.\n Error: " + e;
-        LogError(msg);
+        LogError(msg, nameof(ValidateTarget));
         Status = msg;
         CanInstall = false;
       }
@@ -580,7 +581,7 @@ namespace SPV3
       {
         var msg = "Failed to install Halo Custom Edition." + NewLine
                  + " Error: " + e;
-        LogError(msg);
+        LogError(msg, nameof(InstallHce));
         Status = msg;
       }
     }
@@ -596,7 +597,7 @@ namespace SPV3
       {
         var msg = "Failed to infer Halo process." + NewLine
                  + " Error: " + e;
-        LogError(msg);
+        LogError(msg, nameof(IsHaloOrCEARunning));
         Status = msg;
       }
 
@@ -644,10 +645,11 @@ namespace SPV3
       Exit(0);
     }
 
-    private static void LogError(string msg)
+    private static void LogError(string message, string nameofCaller)
     {
       var ilog = (HXE.File)Paths.Install;
       var log = (HXE.File)Paths.Exception;
+      var msg = _logMsgPrefix.Replace("]", $".{nameofCaller}]") + message;
       HXE.Console.Error(msg);
       ilog.AppendAllText(msg + NewLine);
       log.AppendAllText(msg + NewLine);
