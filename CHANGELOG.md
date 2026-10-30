@@ -1,3 +1,9 @@
+## [2.3.0-alpha.7](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.6...v2.3.0-alpha.7) (2026-10-30)
+
+### Bug Fixes
+
+* **Main:** handle errors that cause the Load button to be disabled indefinitely ([aab1fb8](https://github.com/HaloSPV3/SPV3.Loader/commit/aab1fb8c6a12264533c6891c72e29e54ae5aca57)), closes [#26](https://github.com/HaloSPV3/SPV3.Loader/issues/26)
+
 ## [2.3.0-alpha.6](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.5...v2.3.0-alpha.6) (2026-10-29)
 
 ### Features
