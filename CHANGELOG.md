@@ -1,3 +1,9 @@
+## [2.3.0-alpha.8](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.7...v2.3.0-alpha.8) (2026-10-30)
+
+### Bug Fixes
+
+* **Configuration:** make "Check for prerelease updates" visible on a dark background ([93f58e0](https://github.com/HaloSPV3/SPV3.Loader/commit/93f58e03859cccf3102f28d4034779c1fef4ef3a))
+
 ## [2.3.0-alpha.7](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.6...v2.3.0-alpha.7) (2026-10-30)
 
 ### Bug Fixes
