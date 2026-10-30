@@ -529,7 +529,9 @@
 			<CheckBox IsChecked="{Binding Loader.AllowPrereleaseUpdates}"
 								ToolTip="Enable SPV3.exe to check for unstable, pre-release updates."
 								HorizontalAlignment="Left"
-								VerticalAlignment="Center"/>
+								VerticalAlignment="Center">
+				<Label Content="Check for prerelease updates" Foreground="#FFC8C8C8"/>
+			</CheckBox>
 
 			<!-- HXE Config -->
 			<Button Content="More Settings..."
