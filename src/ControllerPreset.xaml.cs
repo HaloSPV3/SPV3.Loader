@@ -11,5 +11,17 @@ namespace SPV3
     {
       InitializeComponent();
     }
+
+    private void Accept(object? sender, RoutedEventArgs e)
+    {
+      DialogResult = true;
+      this.Close();
+    }
+
+    private void Cancel(object? sender, RoutedEventArgs e)
+    {
+      DialogResult = false;
+      this.Close();
+    }
   }
 }
