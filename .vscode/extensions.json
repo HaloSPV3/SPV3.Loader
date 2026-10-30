@@ -23,6 +23,7 @@
     "arcanis.vscode-zipfs",
     "dbaeumer.vscode-eslint",
     "wieslawsoltes.axsg-language-server",
-    "dabbinavo.xamlstyler"
+    "dabbinavo.xamlstyler",
+    "jgclark.vscode-todo-highlight"
   ]
 }
