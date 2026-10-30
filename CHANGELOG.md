@@ -1,3 +1,9 @@
+## [2.3.0-alpha.9](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.8...v2.3.0-alpha.9) (2026-10-30)
+
+### Bug Fixes
+
+* **Install:** improve tracing in Install logs ([8a083c7](https://github.com/HaloSPV3/SPV3.Loader/commit/8a083c7b0b406eca04fb180acb7e9e946ec900f9))
+
 ## [2.3.0-alpha.8](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.7...v2.3.0-alpha.8) (2026-10-30)
 
 ### Bug Fixes
