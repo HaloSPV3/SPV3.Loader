@@ -31,6 +31,7 @@ namespace SPV3
   /// </summary>
   public partial class Main_Window
   {
+    private const string _logMsgPrefix = $"[{nameof(SPV3)}.{nameof(Main_Window)}] ";
     private readonly Main _main;
 
     public Main_Window()
@@ -52,12 +53,23 @@ namespace SPV3
 
     private async void Load(object? sender, RoutedEventArgs e)
     {
-      Splash loading_splash = new Splash();
-      LoadButton.IsEnabled = false;
-      loading_splash.Show();
-      await Task.Run(() => { _main.Invoke(); });
-      LoadButton.IsEnabled = true;
-      loading_splash.QueueSplashClose();
+      Splash? loading_splash = null;
+      try
+      {
+        LoadButton.IsEnabled = false;
+        loading_splash = new Splash();
+        loading_splash.Show();
+        await Task.Run(() => _main.Invoke());
+      }
+      catch (Exception exception)
+      {
+        LogError(exception.ToString());
+      }
+      finally
+      {
+        LoadButton.IsEnabled = true;
+        loading_splash?.QueueSplashClose();
+      }
     }
 
     private async void Assets(object? sender, RoutedEventArgs e)
@@ -101,6 +113,14 @@ namespace SPV3
     private void Settings(object? sender, RoutedEventArgs e)
     {
       MainTabControl.SelectedItem = ConfigurationTabItem;
+    }
+
+    private static void LogError(string message)
+    {
+      var msg = _logMsgPrefix + message;
+      HXE.Console.Error(msg);
+      var exception = (HXE.File)Paths.Exception;
+      exception.AppendAllText(msg + Environment.NewLine);
     }
   }
 }
