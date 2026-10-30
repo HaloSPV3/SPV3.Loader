@@ -2,6 +2,28 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Start umu-run SPV3.exe (net480_win7-x86)",
+      "dependsOn": [
+        "build"
+      ],
+      "command": "umu-run",
+      "type": "process",
+      "args": [
+        "${workspaceFolder}/artifacts/bin/SPV3/debug_net480_win7-x86/SPV3.exe"
+      ],
+      "options": {
+        "env": {
+          "// WINEPREFIX": "e.g. '/mnt/nextorage/Games/HaloSPV3/.proton/'",
+          "WINEPREFIX": "${env:HALO_SPV3_WINEPREFIX}",
+          "// PROTONPATH": "e.g. '$HOME/.local/share/Steam/compatibilitytools.d/proton-cachyos-11.0-20261015-slr-x86_64_v3/'",
+          "PROTONPATH": "${env:HALO_SPV3_PROTONPATH}"
+        }
+      },
+      "problemMatcher": [
+        "$msCompile"
+      ]
+    },
+    {
       "label": "build",
       "command": "dotnet",
       "type": "process",
