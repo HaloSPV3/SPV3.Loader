@@ -50,7 +50,7 @@ namespace SPV3
       private byte _gamma = 150;
       private ushort _height = (ushort)PrimaryScreen.Bounds.Height;
       private bool _photo;
-      private bool _preset = true;
+      private bool _preset;
       private bool _resolutionEnabled;
       private bool _shaders = true;
       private bool _vSync;
@@ -142,6 +142,7 @@ namespace SPV3
       }
 
       /// <summary> use the built-in spv3 controller preset </summary>
+      [Obsolete($"Superseded by {nameof(ApplyGamepadPreset)}; The GUI checkbox is now a button.")]
       public bool Preset
       {
         get => _preset;
@@ -293,6 +294,17 @@ namespace SPV3
         }
       }
 
+      public bool ResetGamepadControlsHasError
+      {
+        get;
+        internal set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+        }
+      }
+
       /// <summary>If `true`, <see cref="Version.VersionUpstream"/> also checks for pre-release updates</summary>
       public bool AllowPrereleaseUpdates
       {
@@ -401,7 +413,9 @@ namespace SPV3
             /* tweaks */
             {
               bw.Write(EAX); //DevSkim: ignore DS187371
-              bw.Write(Preset);
+              // leave in-place for backwards compatibility
+              /// Formerly <see cref="Preset"/>; We still write a boolean to maintain compatibility
+              bw.Write(false);
               bw.Write(CinemaBars);
               bw.Write(Elevated);
             }
@@ -469,7 +483,8 @@ namespace SPV3
             /* tweaks */
             {
               EAX = br.ReadBoolean(); //DevSkim: ignore DS187371
-              Preset = br.ReadBoolean();
+              /// Formerly <see cref="Preset"/>; We skip over it, now.
+              _ = br.ReadBoolean();
               CinemaBars = br.ReadBoolean();
               Elevated = br.ReadBoolean();
             }

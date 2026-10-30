@@ -20,13 +20,18 @@
  */
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace SPV3
 {
   public partial class Configuration_UserControl : UserControl
   {
+    // a string.replace relies on this ending with "]"
+    private const string _logMsgPrefix = $"[{nameof(SPV3)}.{nameof(Configuration_UserControl)}] ";
     private readonly Configuration _configuration;
 
     public Configuration_UserControl()
@@ -72,6 +77,42 @@ namespace SPV3
       }
     }
 
+    private void ShowInputPresetWindowConfirmation(object? sender, RoutedEventArgs e)
+    {
+      LogInfo("Showing Controller Preset dialog...", nameof(ShowInputPresetWindowConfirmation));
+
+      ControllerPreset controllerPresetWindow = new ControllerPreset();
+      controllerPresetWindow.ButtonAccept.Visibility = Visibility.Visible;
+      controllerPresetWindow.ButtonCancel.Visibility = Visibility.Visible;
+
+      if (controllerPresetWindow.ShowDialog() != true)
+        return;
+
+      LogInfo("User accepted change.", nameof(ShowInputPresetWindowConfirmation));
+
+      var status = Configuration.ApplyGamepadPreset();
+
+      LogInfo("Finished applying gamepad preset", nameof(ShowInputPresetWindowConfirmation));
+
+      ColorAnimation ca = new(
+        status ? Colors.Green : Colors.Red,
+        Colors.Transparent,
+        new Duration(TimeSpan.FromSeconds(1))
+      );
+
+      try
+      {
+        ButtonApplyGamepadPreset.Background = new SolidColorBrush(Colors.Transparent);
+        ButtonApplyGamepadPreset.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
+        ButtonApplyGamepadPreset.Background = new SolidColorBrush(Colors.Red);
+      }
+      catch (Exception exception)
+      {
+        LogError(exception.ToString(), nameof(ShowInputPresetWindowConfirmation));
+        throw;
+      }
+    }
+
     private void ShowInputPresetWindow(object? sender, RoutedEventArgs e)
     {
       ControllerPreset controllerPresetWindow = new ControllerPreset();
@@ -99,7 +140,8 @@ namespace SPV3
     private void Update_AdaptiveHDRisReady(object? sender, RoutedEventArgs e)
     {
       if (_configuration == null) return;
-      _configuration.Shaders.AdaptiveHDRisReady = true == _configuration.Loader.Shaders == _configuration.Shaders.AdaptiveHDR;
+      _configuration.Shaders.AdaptiveHDRisReady =
+        true == _configuration.Loader.Shaders == _configuration.Shaders.AdaptiveHDR;
     }
 
     private void PresetVeryLow(object? sender, RoutedEventArgs e)
@@ -283,6 +325,32 @@ namespace SPV3
           "WARNING: With SSR on and your preferred resolution, you may not get stable FPS. " +
           "We recommend keeping resolution below 2160x1080 with SSR on."
         );
+    }
+
+    /// <summary>
+    /// Log an error message to console and file logs
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="nameofCaller">e.g. nameof(ShowInputPresetWindowConfirmation)}</param>
+    private static void LogError(string message, string nameofCaller)
+    {
+      var msg = _logMsgPrefix.Replace("]", $".{nameofCaller}]") + message;
+      HXE.Console.Error(msg);
+      var exception = (HXE.File)Paths.Exception;
+      exception.AppendAllText(msg + Environment.NewLine);
+    }
+
+    /// <summary>
+    /// Log an error message to console and file logs
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="nameofCaller">e.g. nameof(ShowInputPresetWindowConfirmation)}</param>
+    private static void LogInfo(string message, string? nameofCaller = null)
+    {
+      var msg = _logMsgPrefix.Replace("]", $".{nameofCaller}]") + message;
+      HXE.Console.Info(msg);
+      var exception = (HXE.File)Paths.Exception;
+      exception.AppendAllText(msg + Environment.NewLine);
     }
   }
 }

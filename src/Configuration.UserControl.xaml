@@ -168,9 +168,11 @@
 										ToolTip="Disables HUD and weapons - useful for taking photographs."/>
 				</DockPanel>
 				<DockPanel>
-					<Label Content="SPV3 Input Preset:"/>
-					<CheckBox IsChecked="{Binding Loader.Preset}"
-										ToolTip="Forces SPV3 controller mapping. Disable this if you want custom mapping."/>
+					<!--	How do we indicate ShowInputPresetWindowConfirmation failed?-->
+					<Button Click="ShowInputPresetWindowConfirmation"
+									x:Name="ButtonApplyGamepadPreset"
+									Content="Apply SPV3 Gamepad Preset"
+									ToolTip="Apply SPV3's controller bindings preset upon confirmation."/>
 					<Label MouseLeftButtonUp="ShowInputPresetWindow"
 								 FontFamily="Segoe UI Symbol"
 								 Content="&#xE18B;"
