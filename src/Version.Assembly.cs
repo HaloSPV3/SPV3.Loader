@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2021 Noah Sherwin
  *
@@ -21,93 +21,105 @@
 
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Semver;
 using SPV3.Annotations;
-using static System.Reflection.Assembly;
 
 namespace SPV3
 {
-	public partial class Version
-	{
-		public class VersionAssembly : INotifyPropertyChanged
-		{
-			private string _address;
-			private string _content;
-			private System.Version _version;
+  public partial class Version
+  {
+    public class VersionAssembly : INotifyPropertyChanged
+    {
+      private string _address = string.Empty;
+      private string _content = string.Empty;
+      private System.Version _version = new();
 
-			private Visibility _visibility = Visibility.Collapsed;
+      private Visibility _visibility = Visibility.Collapsed;
 
-			public Visibility Visibility
-			{
-				get => _visibility;
-				set
-				{
-					if (value == _visibility) return;
-					_visibility = value;
-					OnPropertyChanged();
-				}
-			}
+      public Visibility Visibility
+      {
+        get => _visibility;
+        set
+        {
+          if (value == _visibility) return;
+          _visibility = value;
+          OnPropertyChanged();
+        }
+      }
 
-			public string Content
-			{
-				get => _content;
-				set
-				{
-					if (value == _content) return;
-					_content = value;
-					OnPropertyChanged();
-				}
-			}
+      public string Content
+      {
+        get => _content;
+        set
+        {
+          if (value == _content) return;
+          _content = value;
+          OnPropertyChanged();
+        }
+      }
 
-			public string Address
-			{
-				get => _address;
-				set
-				{
-					if (value == _address) return;
-					_address = value;
-					OnPropertyChanged();
-				}
-			}
+      public string Address
+      {
+        get => _address;
+        set
+        {
+          if (value == _address) return;
+          _address = value;
+          OnPropertyChanged();
+        }
+      }
 
-			public System.Version Version
-			{
-				get => _version;
-				set
-				{
-					if (value == _version) return;
-					_version = value;
-					OnPropertyChanged();
-				}
-			}
+      [Obsolete($"Superseded by {nameof(SemVersion)}")]
+      public System.Version Version
+      {
+        get => _version;
+        set
+        {
+          if (value == _version) return;
+          _version = value;
+          OnPropertyChanged();
+        }
+      }
 
-			public event PropertyChangedEventHandler PropertyChanged;
+      public SemVersion SemVersion
+      {
+        get;
+        set
+        {
+          if (value == field) return;
+          field = value;
+          OnPropertyChanged();
+        }
+      } = new(0);
 
-			public void Initialise()
-			{
-				var version = GetExecutingAssembly()?.GetName().Version;
-				if (version.Major == 0) return;
+      public event PropertyChangedEventHandler? PropertyChanged;
 
-				var refHash = new Func<string>(() =>
-				{
-					using (var stream = GetExecutingAssembly().GetManifestResourceStream("SPV3.hash"))
-					using (var reader = new StreamReader(stream ?? throw new InvalidOperationException()))
-						return reader.ReadToEnd();
-				})();
+      public void Initialise()
+      {
+        {
+          if (SemVersion.Major == 0)
+            SemVersion = SemVersion.TryParse(GitVersionInformation.FullSemVer, out var semResult)
+              ? semResult
+              : new(0);
+        }
 
-				Version = version;
-				Content = $"Version {version}-{refHash.ToUpper()}";
-				Address = $"https://github.com/HaloSPV3/SPV3.Loader/commit/{refHash}";
-				Visibility = Visibility.Visible;
-			}
+#pragma warning disable CS0618 // Type or member is obsolete
+        Version = System.Version.TryParse(GitVersionInformation.AssemblySemVer, out var result)
+#pragma warning restore CS0618 // Type or member is obsolete
+          ? result
+          : new();
+        Content = $"Version {GitVersionInformation.FullSemVer}-{GitVersionInformation.ShortSha.ToUpper()}";
+        Address = $"https://github.com/HaloSPV3/SPV3.Loader/releases/v{GitVersionInformation.FullSemVer}";
+        Visibility = Visibility.Visible;
+      }
 
-			[NotifyPropertyChangedInvocator]
-			protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-			{
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
+      [NotifyPropertyChangedInvocator]
+      protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+      {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+      }
+    }
+  }
 }

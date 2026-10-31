@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2021 Noah Sherwin
  *
@@ -31,20 +31,18 @@ namespace SPV3
 
     public void Initialise()
     {
-      Task.Run(() => { Assembly.Initialise(); });
+      Task.Run(Assembly.Initialise);
 
       if (Context.Infer() == Context.Type.Load)
-        Task.Run(() => { Upstream.Initialise(); });
+      {
+        // VersionUpstream is instead initialized by an event fired by Kernel.Load/Save when AllowPreReleaseUpdates is changed
+        // Task.Run(async () => await Upstream.Initialise()).Wait();
+      }
     }
 
     public void Changelog()
     {
-      var startInfo = new ProcessStartInfo()
-      {
-          FileName = "https://github.com/HaloSPV3/SPV3.Loader/compare/" +
-                    $"v{Assembly.Version}...v{Upstream.Version}",
-          UseShellExecute = true
-      };
+      var startInfo = new ProcessStartInfo() { FileName = Upstream.GitChangeLogUrl, UseShellExecute = true };
       Process.Start(startInfo);
     }
   }

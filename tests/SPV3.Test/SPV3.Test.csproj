@@ -1,0 +1,36 @@
+﻿<Project Sdk="MSTest.Sdk/4.5.1">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <SelfContained>true</SelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'" Include="../../ext/hxe/src/HXE.csproj" Private="true" />
+    <PackageReference Condition="'$(EnableBleedingEdgeHXE)' != 'true'" Include="HXE" />
+
+    <PackageReference Include="GitVersion.MsBuild">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="SemVer" />
+
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+
+    <Compile Include="../../src/Properties/Annotations.cs" />
+    <Compile Include="../../src/Configuration.Chimera.cs" />
+    <Compile Include="../../src/Configuration.cs" />
+    <Compile Include="../../src/Configuration.Loader.cs" />
+    <Compile Include="../../src/Configuration.OpenSauce.cs" />
+    <Compile Include="../../src/Configuration.Shaders.cs" />
+    <Compile Include="../../src/Debug.cs" />
+    <Compile Include="../../src/Kernel.cs" />
+    <Compile Include="../../src/Paths.cs" />
+    <Compile Include="../../src/Version.Upstream.cs" />
+  </ItemGroup>
+
+</Project>

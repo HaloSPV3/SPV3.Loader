@@ -6,7 +6,6 @@ root = true
 
 [*]
 charset = utf-8
-end_of_line = crlf
 trim_trailing_whitespace = true
 insert_final_newline = true
 # Don't use tabs for indentation.
@@ -33,6 +32,9 @@ indent_size = 2
 end_of_line = lf
 indent_size = 2
 
+[.gitignore]
+end_of_line = lf
+
 # License header
 #file_header_template =
 
@@ -55,7 +57,7 @@ indent_size = 2
 charset=unset
 
 [*.cs]
-indent_size = 4
+indent_size = 2
 insert_final_newline = true
 charset = utf-8-bom
 

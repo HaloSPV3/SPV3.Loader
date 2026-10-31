@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -31,15 +31,15 @@ namespace SPV3
     public Report_UserControl()
     {
       InitializeComponent();
-      Report = (Report) DataContext;
+      Report = (Report)DataContext;
       Report.Initialise();
     }
 
     public Report Report { get; }
 
-    public event EventHandler Home;
+    public event EventHandler? Home;
 
-    private async void Copy(object sender, RoutedEventArgs e)
+    private async void Copy(object? sender, RoutedEventArgs e)
     {
       Clipboard.SetText(Report.Stack);
 
@@ -50,7 +50,7 @@ namespace SPV3
       CopyButton.Content = "Copy to clipboard";
     }
 
-    private void Back(object sender, RoutedEventArgs e)
+    private void Back(object? sender, RoutedEventArgs e)
     {
       Home?.Invoke(sender, e);
     }

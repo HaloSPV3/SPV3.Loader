@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -36,22 +36,22 @@ namespace SPV3
       return new ProcessStartInfo(uri) { UseShellExecute = true };
     }
 
-    private void Reddit(object sender, MouseButtonEventArgs e)
+    private void Reddit(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(_getStartInfo("https://www.reddit.com/r/halospv3"));
     }
 
-    private void Twitter(object sender, MouseButtonEventArgs e)
+    private void Twitter(object? sender, MouseButtonEventArgs e)
     {
-      Process.Start(_getStartInfo("https://twitter.com/halo_spv3"));
+      Process.Start(_getStartInfo("https://x.com/halo_legacies"));
     }
 
-    private void Discord(object sender, MouseButtonEventArgs e)
+    private void Discord(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(_getStartInfo("https://discord.gg/q4f7nTt"));
     }
 
-    private void Wikia(object sender, MouseButtonEventArgs e)
+    private void Wikia(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(_getStartInfo("https://halo-spv3.fandom.com"));
     }

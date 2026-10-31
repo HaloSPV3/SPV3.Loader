@@ -1,0 +1,8 @@
+<Solution xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/microsoft/vs-solutionpersistence/refs/heads/main/src/Microsoft.VisualStudio.SolutionPersistence/Serializer/Xml/Slnx.xsd">
+  <Folder Name="/tests/">
+    <Project Path="tests/SPV3.Test/SPV3.Test.csproj">
+      <BuildDependency Project="src/SPV3.csproj" />
+    </Project>
+  </Folder>
+  <Project Path="src/SPV3.csproj"/>
+</Solution>

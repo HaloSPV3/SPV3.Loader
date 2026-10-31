@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Platform>AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <Prefer32Bit>false</Prefer32Bit>
-    <OutputPath>..\bin\$(Configuration)\</OutputPath>
-    <TargetFramework>net5.0-windows</TargetFramework>
-    <TargetFrameworks>net5.0-windows;net6.0-windows</TargetFrameworks>
+    <!-- If TargetFramework and/or RuntimeIdentifiers are changed,
+     you must also update the `githubReleaseAssetHint` in file://./../.releaserc.ts
+     todo: drop net6.0-windows; net480 will suffice for Windows 7 support -->
+    <!-- todo: net10.0 + Avalonia -->
+    <TargetFrameworks>net480;net6.0-windows</TargetFrameworks>
+    <!-- <TargetFrameworks Condition="'$(Configuration)' == Debug">$(TargetFrameworks);net10.0-windows</TargetFrameworks> -->
+
+    <NET6_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net6.0'))</NET6_0_OR_GREATER>
+    <NET7_0_OR_GREATER Condition="'$(TargetFramework)' != ''">$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))</NET7_0_OR_GREATER>
+
+    <!-- If framework supports Windows 7 SP1, build x86 executable for compatibility -->
+    <RuntimeIdentifiers>win7-x86</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == ''">win7-x86</RuntimeIdentifier>
+    <!-- else, Windows 10 or later; Windows 8/8.1? idk -->
+    <RuntimeIdentifiers Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(NET7_0_OR_GREATER)' == 'true'">win-x86</RuntimeIdentifier>
+    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
     <OutputType>WinExe</OutputType>
-    <AssemblyName>SPV3.Loader</AssemblyName>
+    <AssemblyName>SPV3</AssemblyName>
     <StartupObject>SPV3.App</StartupObject>
     <!-- Application | Resources -->
-    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets/icon.ico</ApplicationIcon>
     <RootNamespace>SPV3</RootNamespace>
+    <UseApplicationTrust>true</UseApplicationTrust>
+    <SupportUrl>https://github.com/HaloSPV3/HCE/issues</SupportUrl>
     <!-- Build | General -->
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <!-- Build | Error and warnings -->
     <!-- Build | Output -->
     <!-- Build | Events -->
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <!-- Publish -->
-    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
     <!-- Misc -->
     <ProjectGuid>{C6922C15-C0C1-46D0-B2BC-2B0FF2BAD82B}</ProjectGuid>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -27,137 +43,260 @@
     <PublisherName>Halo SPV3 Team</PublisherName>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+
+    <ZPDJoinArgsSeparator>_</ZPDJoinArgsSeparator>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>embedded</DebugType>
+    <DebugType Condition="'$(CI)' != true">portable</DebugType>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup > <!-- NuGet -->
+
+  <PropertyGroup Label="Nuget Properties"> <!-- NuGet -->
     <!-- Docs:
     https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package-msbuild
     https://docs.microsoft.com/en-us/nuget/reference/msbuild-targets#pack-target-inputs
     -->
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>HaloSPV3</Authors>
     <Company>github/HaloSPV3</Company>
     <Copyright>Copyright © 2021 Noah Sherwin</Copyright>
     <Description>The Halo SPV3 Loader</Description>
     <IncludeSource>true</IncludeSource>
     <IncludeSymbols>true</IncludeSymbols>
-      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageIconUrl>https://github.com/HaloSPV3/SPV3.Loader/blob/main/src/Assets/logo.png</PackageIconUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <PackageLicenseUrl>https://github.com/HaloSPV3/SPV3.Loader/blob/main/COPYRIGHT</PackageLicenseUrl>
     <PackageLicenseExpression>Zlib</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/HaloSPV3/SPV3.Loader</PackageProjectUrl>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageReleaseNotes>https://github.com/HaloSPV3.Loader/releases/v$(Version)</PackageReleaseNotes> <!-- TODO: Set up NuGet release notes -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/HaloSPV3/SPV3.Loader</RepositoryUrl>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(NET6_0_OR_GREATER)' == 'true'">
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishSelfContained>true</PublishSelfContained>
+    <SelfContained>$(PublishSelfContained)</SelfContained>
+    <!-- Setting RuntimeIdentifier also sets SelfContained to true by default. -->
+    <EnableCompressionInSingleFile>$(PublishSelfContained)</EnableCompressionInSingleFile>
+    <PublishTrimmed>$('$(UseWPF)' != 'true' AND '$(UseWindowsForms)' != 'true')</PublishTrimmed>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+    <RuntimeIdentifier>win7-x86</RuntimeIdentifier>
+  </PropertyGroup>
+
   <ItemGroup> <!-- Misc Project Items -->
-    <None Include="..\README.md">
-      <Link>.docs-misc\REAMDE.md</Link>
+    <None Include="../README.md">
+      <Link>.docs-misc/REAMDE.md</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
+      <PackagePath>/</PackagePath>
     </None>
-    <None Include="..\*.*">
-      <Link>.root\%(Filename)%(Extension)</Link>
+    <None Include="../*.*">
+      <Link>.root/%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Include="..\.github/**/*.*">
-     <Link>.root\.github\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    <None Include="../.github/**/*.*">
+      <Link>.root/.github/%(RecursiveDir)%(Filename)%(Extension)</Link>
     </None>
-    <None Include="..\doc/**/*.*">
-      <Link>.docs\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    <None Include="../doc/**/*.*">
+      <Link>.docs/%(RecursiveDir)%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Include="..\*.md">
-      <Link>.docs-misc\%(Filename)%(Extension)</Link>
+    <None Include="../*.md">
+      <Link>.docs-misc/%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="*.txt">
-      <Link>.docs-misc\%(Filename)%(Extension)</Link>
+      <Link>.docs-misc/%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Include="src.licenseheader">
-      <Link>.docs-misc\%(Filename)%(Extension)</Link>
+      <Link>.docs-misc/%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup> <!-- Commit Hash -->
-    <EmbeddedResource Include="hash">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
+
   <ItemGroup> <!-- Logos & Icons -->
-    <Resource Include="Assets\*.*" Exclude="Assets\logo*" />
-    <Resource Include="Assets\logo.png" Pack="True" PackagePath="\" />
-    <Content Include="Assets\logo_chief.png" />
+    <Resource Include="Assets/*.*" Exclude="Assets/logo*" />
+    <Resource Include="Assets/logo.png" Pack="True" PackagePath="/" />
+    <Content Include="Assets/logo_chief.png" />
   </ItemGroup>
+
   <ItemGroup> <!-- SxS Content -->
     <!-- Positions -->
-    <Content Include="Positions\*.*">
+    <Content Include="Positions/*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>%(FileName)%(Extension)</TargetPath>
     </Content>
     <!-- Presence Support -->
-    <Content Include="Presence\DRP.dll">
+    <Content Include="Presence/DRP.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <TargetPath>controls\haloce_presence.dll</TargetPath>
+      <TargetPath>controls/haloce_presence.dll</TargetPath>
     </Content>
     <!-- Tile Support -->
-    <Content Include="Tile\*.*">
+    <Content Include="Tile/*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <TargetPath>%(FileName)%(Extension)</TargetPath>
     </Content>
   </ItemGroup>
-  <ItemGroup> <!-- Project References -->
-    <ProjectReference Include="$(MSBuildProjectDirectory)\..\ext\hxe\src\HXE.csproj">
-      <Project>{acaa5d9f-b23d-43e1-b2df-8c03230975a1}</Project>
+
+  <ItemGroup Label="References">
+    <ProjectReference Condition="'$(EnableBleedingEdgeHXE)' == 'true'"
+      Include="$(MSBuildProjectDirectory)/../ext/hxe/src/HXE.csproj"
+      Private="true" SetSelfContained="$(SelfContained)">
+      <Properties>SelfContained=$(SelfContained)</Properties>
       <Name>HXE</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup> <!-- Package References -->
-    <PackageReference Include="GitVersion.MsBuild" Version="6.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+    <ProjectReference Include="$(MSBuildProjectDirectory)/../ext/HCE.DRP/src/DRP.nativeproj"
+      Name="HCE.DRP" ReferenceOutputAssembly="false" Private="true"
+      SetConfiguration="Configuration=Release"
+      Condition="'$(UseBleedingEdgeHceDrp)' == true" />
+    <PackageReference Include="GitVersion.MsBuild">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="MahApps.Metro">
-      <Version>2.4.10</Version>
+    <PackageReference Condition="'$(EnableBleedingEdgeHXE)' != 'true'"
+      Include="HXE" />
+    <PackageReference Include="MahApps.Metro" />
+    <PackageReference Include="Meziantou.Polyfill">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="8.0.8" />
+    <PackageReference Include="Roslynator.Analyzers" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Roslynator.CodeFixes" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Roslynator.Formatting.Analyzers" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Semver" />
   </ItemGroup>
-  <ItemGroup> <!-- IL Link -->
-    <Content Update="HXE.dll">
+
+  <Choose>
+    <When Condition="'$(TargetFramework.StartsWith(net4))' == 'true'">
+      <PropertyGroup Label="Additional Properties (NET4)">
+        <PreferNativeArm64>true</PreferNativeArm64>
+        <!-- Disabling these two properties prevents the output of (App).exe.config. Yippee! -->
+        <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+        <GenerateSupportedRuntime>false</GenerateSupportedRuntime>
+        <WeaverConfiguration>
+          <Weavers>
+            <Costura />
+          </Weavers>
+        </WeaverConfiguration>
+      </PropertyGroup>
+      <ItemGroup Label="Additional References (NET4)">
+        <PackageReference Include="Costura.Fody" PrivateAssets="all" />
+        <PackageReference Include="System.Text.Json" />
+        <Reference Include="System.Net.Http" Version="4.2.0.0" Culture="neutral" PublicKeyToken="b03f5f7f11d50a3a" />
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <ItemGroup Label="IL Link">
+    <Content Update="D3DCompiler_47_cor3.dll;HXE.dll;sni.dll;PenImc_cor3.dll;PresentationNative_cor3.dll;vcruntime140_core3.dll;wpfgfx_cor3.dll">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <ExcludeFromSingleFile>false</ExcludeFromSingleFile>
     </Content>
-    <Content Update="sni.dll">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <ExcludeFromSingleFile>false</ExcludeFromSingleFile>
-    </Content>
   </ItemGroup>
-  <ItemGroup> <!-- Trimmer -->
-    <TrimmerRootAssembly Include="sni" /> <!-- runtime.native.system.data.sqlclient.sni -->
+
+  <ItemGroup Label="Trim">
+    <!-- runtime.native.system.data.sqlclient.sni -->
+    <TrimmerRootAssembly Include="sni;HXE" />
     <!--<TrimmerRootAssembly Include="System.Security" />-->
-    <TrimmerRootAssembly Include="HXE" />
   </ItemGroup>
-  <Target Name="Unshallow" BeforeTargets="CreateHashFile">
-    <Exec Command="pwsh $(MSBuildProjectDirectory)/../ext/HXE/src/.msb.prebuild.ps1" />
+
+  <Target Name="BeforeWpfBuild" BeforeTargets="GenerateTemporaryTargetAssembly">
+    <PropertyGroup>
+      <_cfg>release</_cfg>
+      <_cfg Condition="'$(Configuration)' == 'debug'">debug</_cfg>
+      <_incompletePath>$([System.Text.RegularExpressions.Regex]::Matches(
+        "$(IntermediateOutputPath)", '([\\/])(release_)([\\/])')
+        )</_incompletePath>
+      <_tfm>$(TargetFramework)</_tfm>
+      <_tfm Condition="'$(_tfm)' == ''">UNKNOWN_$([System.Text.RegularExpressions.Regex]::Replace("$(MSBuildThisFileName)", "$(AssemblyName)_([a-zA-Z0-9]+)_wpftmp.csproj", "$1", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</_tfm>
+      <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+      <IntermediateOutputPath Condition="
+        '$(MSBuildThisFileName)' != ''
+        AND '$(MSBuildThisFileName.EndsWith(`_wpftmp`))'
+        AND '$(IntermediateOutputPath)' != ''
+        AND '$(_incompletePath)' != ''">$([System.Text.RegularExpressions.Regex]::Replace("$(IntermediateOutputPath)","([\\/])$(_cfg)_([\\/])", "$1$(_cfg)_$(_tfm)$2", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</IntermediateOutputPath>
+    </PropertyGroup>
   </Target>
-  <Target Name="CreateHashFile" BeforeTargets="PreBuildEvent">
-    <Exec Command="git rev-parse --short HEAD &gt; $(MSBuildProjectDirectory)/hash" />
+
+  <Target Name="AfterBuild_RemoveEmptyDirectory" AfterTargets="Build">
+    <!-- https://stackoverflow.com/a/11055543
+    MahApps.Metro packages German/Deutsch localization in its "de" subfolder.
+    Costura.Fody bundles the localization satellite assembly, leaving the "de" folder empty.
+    Empty folders are copied to the intermediate, build, and publish output.
+    That is unnecessary.
+    This Target recursively searches the build output for directory trees with 0 files and deletes them. -->
+    <ItemGroup>
+      <Directories Condition="Exists('$(OutputPath)')"
+        Include="$([System.IO.Directory]::GetDirectories('$(OutputPath)', '*', System.IO.SearchOption.AllDirectories))" />
+      <Directories>
+        <Files>$([System.IO.Directory]::GetFiles("%(Directories.Identity)", "*", System.IO.SearchOption.AllDirectories).get_Length())</Files>
+      </Directories>
+    </ItemGroup>
+    <RemoveDir Directories="@(Directories)" Condition="%(Files)=='0'" />
   </Target>
-  <Target Name="NoConfig" AfterTargets="PostBuildEvent;AfterPublish">
-    <Exec Command="pwsh $(MSBuildProjectDirectory)/../ext/HXE/src/.msb.noConfig.ps1" />
+
+  <Target Name="Build">
+
+    <GenerateTrustInfo>
+      <Output ItemName="TrustInfo" TaskParameter="TrustInfoFile"></Output>
+    </GenerateTrustInfo>
+
+    <GenerateApplicationManifest
+      AssemblyName="$(AssemblyName).exe"
+      AssemblyVersion="$(AssemblyVersion)"
+      EntryPoint="@(EntryPoint)"
+      TrustInfoFile="@(TrustInfo)"
+      OutputManifest="$(AssemblyName).exe.manifest">
+      <Output
+        ItemName="ApplicationManifest"
+        TaskParameter="OutputManifest" />
+    </GenerateApplicationManifest>
+
+    <!-- <GenerateDeploymentManifest
+      AssemblyName="$(AssemblyName).application"
+      AssemblyVersion="$(AssemblyVersion)"
+      EntryPoint="$(ApplicationManifest)"
+      Install="false"
+      OutputManifest="$(AssemblyName).application">
+      <Output
+        ItemName="DeployManifest"
+        TaskParameter="OutputManifest" />
+    </GenerateDeploymentManifest> -->
+
+    <SignFile Condition="'$(Thumbprint)' != ''"
+      CertificateThumbprint="$(Thumbprint)"
+      SigningTarget="@(ApplicationManifest)" />
+
+    <SignFile Condition="'$(Thumbprint)' != ''"
+      CertificateThumbprint="$(Thumbprint)"
+      SigningTarget="@(DeployManifest)" />
+
+  </Target>
+
+  <Target Name="RenamePublishZip" AfterTargets="ZipPublishDir" Condition="'$(AssemblyName)' == 'SPV3'">
+    <PropertyGroup>
+      <DestinationFullPath>$([System.Text.RegularExpressions.Regex]::Replace("$(DestinationFile)", "([\\/])SPV3$(ZPDJoinArgsSeparator)([^\\/]+)", "$1SPV3.Loader$(ZPDJoinArgsSeparator)$2", "System.Text.RegularExpressions.RegexOptions.ECMAScript"))</DestinationFullPath>
+    </PropertyGroup>
+    <Move SourceFiles="$(DestinationFile)" DestinationFiles="$(DestinationFullPath)" />
   </Target>
 </Project>

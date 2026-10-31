@@ -1,20 +1,19 @@
 {
-  "conventionalCommits.scopes": [
-    "contributing", // contributing.md
-    "deps", // Node,  dependencies
-    "release", // Release workflow
-    "semantic-release",
-    "gitversion",
-    "codeql",
-    "ci", // CI workflow
-    "vscode", // VSCode configs
-    "editorconfig",
-    "readme",
-    "renovate",
-    "cpr", // Conventional Pull Request
-    "commitizen",
-    "SPV3"
-  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[xaml]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "files.associations": {
+    "**/.vscode/*.json": "jsonc",
+    ".xaml": "xaml",
+    ".vcxproj": "msbuild",
+    ".nativeproj": "msbuild"
+  },
   "xml.codeLens.enabled": true,
   "github-actions.workflows.pinned.workflows": [
     ".github/workflows/release.yml",
@@ -23,10 +22,73 @@
   "devskim.ignoreRulesList": [
     "DS187371"
   ],
-  "markdownlint.config": {
-    "MD025": {
-      "front_matter_title": ""
-    },
-    "MD028": false
-  }
+  "eslint.nodePath": ".yarn/sdks",
+  "js/ts.tsdk.path": ".yarn/sdks/typescript/lib",
+  "js/ts.tsdk.promptToUseWorkspaceVersion": true,
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "cSpell.words": [
+    "_wpftmp",
+    "Autoaim",
+    "blam",
+    "borderless",
+    "browsable",
+    "buildtransitive",
+    "bytearray",
+    "contentfiles",
+    "ControlzEx",
+    "conv-pr",
+    "Costura",
+    "Deserialise",
+    "deserialising",
+    "devmode",
+    "dinput",
+    "DPID",
+    "DSOAL",
+    "Emilian",
+    "EXEP",
+    "gamepads",
+    "haloce",
+    "halospv3",
+    "Initialise",
+    "lastprof",
+    "Lightmaps",
+    "Meziantou",
+    "msbuild",
+    "msdata",
+    "nogamma",
+    "Normalisation",
+    "normalise",
+    "Normalised",
+    "opensauce",
+    "PIDVID",
+    "resheader",
+    "resmimetype",
+    "resx",
+    "runas",
+    "savegame",
+    "savegames",
+    "seps",
+    "Serialise",
+    "Serialised",
+    "serialiser",
+    "SFX",
+    "snupkg",
+    "Streamable",
+    "subkey",
+    "tokenless",
+    "vidmode",
+    "WINEPREFIX",
+    "XBCD",
+    "yumiris"
+  ],
+  "cmake.sourceDirectory": "${workspaceFolder}/ext/HCE.DRP/src",
+  "cmake.buildDirectory": "${workspaceFolder}/ext/HCE.DRP/artifacts/obj/DRP/release_win-x86/win-x86/x86",
+  "csharp-dev-tools.solutionViewer.selectedWorkspaceSolutions": [
+    "SPV3.slnx"
+  ],
+  "vcpkg.general.enable": false,
+  "licenser.customSPDXId": "gpl-3.0-only"
 }

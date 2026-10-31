@@ -19,8 +19,8 @@ jobs:
     uses: ./.github/workflows/ci.yml
     permissions:
       contents: read
-  build:
-    name: Build
+  release:
+    name: Release
     # required for proper WPF builds/publishes
     runs-on: windows-latest
     needs: ci
@@ -31,28 +31,37 @@ jobs:
       pull-requests: write # comment on released pull requests
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0 # Required by GitVersion, Semantic Release
           submodules: recursive
 
       - run: corepack enable
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
-          cache: yarn
           node-version-file: .nvmrc
-          check-latest: true
-      - run: yarn install --immutable --immutable-cache
+      - run: corepack enable
+      - name: Setup Node Cache
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: yarn
+
+      - run: yarn install --immutable
 
       - name: Setup Dotnet
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v6
         with:
-          cache: dotnet
+          cache: true
+          cache-dependency-path: |
+            src/packages.lock.json
+            src/packages-debug.lock.json
 
       - name: Semantic Release
         id: semantic-release
-        run: npx semantic-release -- --debug
+        run: yarn release
         env:
           DEBUG: semantic-release*
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BuildInParallel: 'false'

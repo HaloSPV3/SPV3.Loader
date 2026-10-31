@@ -26,34 +26,36 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           submodules: recursive
           fetch-depth: 0
-      - id: isDepUpBranch
-        name: Is the current branch a dep-upgrade branch?
-        shell: bash
-        run: |
-          BRANCH_NAME="$(git branch --show-current)"
-          echo "BRANCH_NAME is '$BRANCH_NAME'"
-          [[ "$BRANCH_NAME" =~ ^(renovate|dependabot)/.+$ ]] &&
-            echo $'V=true\nIMMUTABLE_CACHE=--immutable-cache' > $GITHUB_OUTPUT ||
-            echo 'This branch is not a dep-upgrade branch.'
 
       - run: corepack enable
-      - uses: actions/setup-node@v6
+      - name: Setup Node
+        uses: actions/setup-node@v7
         with:
+          node-version-file: .nvmrc
+      - run: corepack enable
+      - name: Setup Node Cache
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
           cache: yarn
-      - run: yarn install --immutable ${{ steps.isDepUpBranch.outputs.IMMUTABLE_CACHE}}
 
-      - uses: actions/setup-dotnet@v5
+      - run: yarn install --immutable
+
+      - uses: actions/setup-dotnet@v6
 
       # if run simultaneously, the logs would be a mess
       - name: Build (Debug)
-        run: dotnet build -c Debug -check
+        run: dotnet build src -c Debug
       # if run simultaneously, the logs would be a mess
       - name: Build (Release)
-        run: dotnet build -c Release -check
+        run: dotnet build src -c Release
 
       - name: Publish (Release)
-        run: dotnet restore -t:PublishAll
+        run: dotnet restore src -t:PublishAll
+
+      - name: Test
+        run: dotnet test tests/SPV3.Test/SPV3.Test.csproj

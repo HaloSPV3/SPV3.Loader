@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -29,7 +29,7 @@ namespace SPV3
   {
     public class MainError : INotifyPropertyChanged
     {
-      private string     _content;
+      private string _content = string.Empty;
       private Visibility _visibility = Visibility.Collapsed;
 
       public Visibility Visibility
@@ -54,10 +54,10 @@ namespace SPV3
         }
       }
 
-      public event PropertyChangedEventHandler PropertyChanged;
+      public event PropertyChangedEventHandler? PropertyChanged;
 
       [NotifyPropertyChangedInvocator]
-      protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+      protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
       {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
       }
