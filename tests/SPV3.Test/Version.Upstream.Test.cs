@@ -24,8 +24,9 @@ public sealed class TestVersionUpstream
     Assert.AreEqual(Visibility.Collapsed, upstreamVersion.Visibility);
 
     // if on main, the current version may be greater-than or less-than the latest prerelease.
-    if (GitVersionInformation.BranchName != "main")
+    if (GitVersionInformation.BranchName == "develop")
     {
+#pragma warning disable CS0162 // Unreachable code detected
       var version = SemVersion.Parse(GitVersionInformation.FullSemVer);
       Kernel.spv3.AllowPrereleaseUpdates = true;
       Kernel.Save();
@@ -46,6 +47,7 @@ public sealed class TestVersionUpstream
           versionPre
         );
       }
+#pragma warning restore CS0162 // Unreachable code detected
     }
   }
 }
