@@ -1,3 +1,9 @@
+## [2.3.0-alpha.10](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.9...v2.3.0-alpha.10) (2026-10-31)
+
+### Features
+
+* **Configuration:** add Chimera FPS Throttle (limiter) to Settings, infer from "framerate"; Changed VSync to ComboBox ([19177ab](https://github.com/HaloSPV3/SPV3.Loader/commit/19177abd4bcd08ad889d5d4cc792478971d1a83e))
+
 ## [2.3.0-alpha.9](https://github.com/HaloSPV3/SPV3.Loader/compare/v2.3.0-alpha.8...v2.3.0-alpha.9) (2026-10-30)
 
 ### Bug Fixes
