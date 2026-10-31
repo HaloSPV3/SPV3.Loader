@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -27,7 +27,7 @@ namespace SPV3
 {
   public class Report : INotifyPropertyChanged
   {
-    private string _stack;
+    private string _stack = string.Empty;
 
     public string Stack
     {
@@ -40,7 +40,7 @@ namespace SPV3
       }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     public void Initialise()
     {
@@ -49,7 +49,7 @@ namespace SPV3
     }
 
     [NotifyPropertyChangedInvocator]
-    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
     {
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

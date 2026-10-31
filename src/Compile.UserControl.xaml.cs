@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -33,24 +33,24 @@ namespace SPV3
     public Compile_UserControl()
     {
       InitializeComponent();
-      _compile = (Compile) DataContext;
+      _compile = (Compile)DataContext;
     }
 
-    public event EventHandler Home;
+    public event EventHandler? Home;
 
-    private async void Compile(object sender, RoutedEventArgs e)
+    private async void Compile(object? sender, RoutedEventArgs e)
     {
       CompileButton.Content = "Compiling...";
       await Task.Run(() => _compile.Commit());
       CompileButton.Content = "Compile";
     }
 
-    private void Back(object sender, RoutedEventArgs e)
+    private void Back(object? sender, RoutedEventArgs e)
     {
       Home?.Invoke(sender, e);
     }
 
-    private void Browse(object sender, RoutedEventArgs e)
+    private void Browse(object? sender, RoutedEventArgs e)
     {
       using (var dialog = new FolderBrowserDialog())
       {

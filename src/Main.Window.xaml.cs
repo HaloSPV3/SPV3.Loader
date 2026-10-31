@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -31,6 +31,7 @@ namespace SPV3
   /// </summary>
   public partial class Main_Window
   {
+    private const string _logMsgPrefix = $"[{nameof(SPV3)}.{nameof(Main_Window)}] ";
     private readonly Main _main;
 
     public Main_Window()
@@ -38,67 +39,88 @@ namespace SPV3
       InitializeComponent();
       MainWindow.WindowTitleBrush = new SolidColorBrush(Color.FromArgb(100, 21, 43, 82));
 
-      _main = (Main) DataContext;
+      _main = (Main)DataContext;
       _main.Initialise();
 
+#pragma warning disable format
       ConfigurationUserControl.Home += Main;
       ReportUserControl.Home        += Main;
       InstallUserControl.Home       += Main;
       CompileUserControl.Home       += Main;
       VersionUserControl.Update     += Update;
+#pragma warning restore format
     }
 
-    private async void Load(object sender, RoutedEventArgs e)
+    private async void Load(object? sender, RoutedEventArgs e)
     {
-      Splash loading_splash = new Splash();
-      LoadButton.IsEnabled = false;
-      loading_splash.Show();
-      await Task.Run(() => { _main.Invoke(); });
-      LoadButton.IsEnabled = true;
-      loading_splash.QueueSplashClose();
+      Splash? loading_splash = null;
+      try
+      {
+        LoadButton.IsEnabled = false;
+        loading_splash = new Splash();
+        loading_splash.Show();
+        await Task.Run(() => _main.Invoke());
+      }
+      catch (Exception exception)
+      {
+        LogError(exception.ToString());
+      }
+      finally
+      {
+        LoadButton.IsEnabled = true;
+        loading_splash?.QueueSplashClose();
+      }
     }
 
-    private async void Assets(object sender, RoutedEventArgs e)
+    private async void Assets(object? sender, RoutedEventArgs e)
     {
       AssetsButton.IsEnabled = false;
       await Task.Run(() => { _main.Update(); });
       AssetsButton.IsEnabled = true;
     }
 
-    private void Quit(object sender, RoutedEventArgs e)
+    private void Quit(object? sender, RoutedEventArgs e)
     {
       _main.Quit();
     }
 
-    private void Report(object sender, MouseButtonEventArgs e)
+    private void Report(object? sender, MouseButtonEventArgs e)
     {
       MainTabControl.SelectedItem = ReportTabItem;
       ReportUserControl.Report.Initialise();
     }
 
-    private void Main(object sender, EventArgs e)
+    private void Main(object? sender, EventArgs e)
     {
       MainTabControl.SelectedItem = MainTabItem;
     }
 
-    private void Update(object sender, EventArgs e)
+    private void Update(object? sender, EventArgs e)
     {
       MainTabControl.SelectedItem = UpdateTabItem;
     }
 
-    private void Install(object sender, RoutedEventArgs e)
+    private void Install(object? sender, RoutedEventArgs e)
     {
       MainTabControl.SelectedItem = InstallTabItem;
     }
 
-    private void Compile(object sender, RoutedEventArgs e)
+    private void Compile(object? sender, RoutedEventArgs e)
     {
       MainTabControl.SelectedItem = CompileTabItem;
     }
 
-    private void Settings(object sender, RoutedEventArgs e)
+    private void Settings(object? sender, RoutedEventArgs e)
     {
       MainTabControl.SelectedItem = ConfigurationTabItem;
+    }
+
+    private static void LogError(string message)
+    {
+      var msg = _logMsgPrefix + message;
+      HXE.Console.Error(msg);
+      var exception = (HXE.File)Paths.Exception;
+      exception.AppendAllText(msg + Environment.NewLine);
     }
   }
 }

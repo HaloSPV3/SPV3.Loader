@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -31,37 +31,35 @@ namespace SPV3
   {
     private readonly Version _version;
 
-    private ProcessStartInfo _startInfo => new ProcessStartInfo(_version.Assembly.Address) { UseShellExecute = true };
-
     public Version_UserControl()
     {
       InitializeComponent();
-      _version = (Version) DataContext;
+      _version = (Version)DataContext;
       _version.Initialise();
     }
 
-    public event EventHandler Update;
+    public event EventHandler? Update;
 
-    private void Assembly(object sender, MouseButtonEventArgs e)
+    private void Assembly(object? sender, MouseButtonEventArgs e)
     {
-      Process.Start(_startInfo);
+      Process.Start(new ProcessStartInfo(_version.Assembly.Address) { UseShellExecute = true });
     }
 
-    private async void Upstream(object sender, MouseButtonEventArgs e)
+    private async void Upstream(object? sender, MouseButtonEventArgs e)
     {
       Update?.Invoke(sender, e);
 
       await Task.Run(() =>
       {
         Thread.Sleep(2500);
-        Process.Start(_startInfo);
+        Process.Start(new ProcessStartInfo(_version.Upstream.Address) { UseShellExecute = true });
         Process.Start(Environment.CurrentDirectory);
       });
 
       Environment.Exit(0);
     }
 
-    private void Changelog(object sender, MouseButtonEventArgs e)
+    private void Changelog(object? sender, MouseButtonEventArgs e)
     {
       _version.Changelog();
     }

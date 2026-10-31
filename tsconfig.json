@@ -1,0 +1,15 @@
+{
+  "extends": "@halospv3/hce.shared-config/tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": ".tsOut"
+  },
+  "compileOnSave": true,
+  "include": [ "**/.*.ts", "**/*.ts" ],
+  "exclude": [
+    ".tsOut",
+    "ext",
+    "**/node_modules/**",
+    "**/tsconfig.json",
+    "**/tsconfig.*.json"
+  ]
+}

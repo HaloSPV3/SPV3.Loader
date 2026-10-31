@@ -1,0 +1,14 @@
+{
+  "launchConfigurations": [
+    {
+      "id": "94f1baa3-55aa-4451-8061-83f15e6bc1f2",
+      "name": "Debug Tests",
+      "projects": [
+        {
+          "projectPath": "../ext/hxe/tests/HXE.Tests/HXE.Tests.csproj",
+          "debug": true
+        }
+      ]
+    }
+  ]
+}

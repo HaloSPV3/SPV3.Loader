@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  * Copyright (c) 2021 Noah Sherwin
  *
@@ -27,103 +27,132 @@ using static System.IO.File;
 
 namespace SPV3
 {
-    public partial class Main
+  public partial class Main
+  {
+    public MainError Error { get; set; } = new MainError();   /* catches & shows exceptions   */
+    public MainInstall Install { get; set; } = new MainInstall(); /* checks & allows installation */
+    public MainCompile Compile { get; set; } = new MainCompile(); /* checks & allows compilation  */
+    public MainLoad Load { get; set; } = new MainLoad();    /* checks & allows loading      */
+    public MainAssets Assets { get; set; } = new MainAssets();  /* permits SPV3 assets update   */
+
+    /// <summary>
+    ///   Wrapper for subclass initialization methods.
+    /// </summary>
+    public void Initialise()
     {
-        public MainError Error { get; set; } = new MainError();   /* catches & shows exceptions   */
-        public MainInstall Install { get; set; } = new MainInstall(); /* checks & allows installation */
-        public MainCompile Compile { get; set; } = new MainCompile(); /* checks & allows compilation  */
-        public MainLoad Load { get; set; } = new MainLoad();    /* checks & allows loading      */
-        public MainAssets Assets { get; set; } = new MainAssets();  /* permits SPV3 assets update   */
+      Directory.CreateDirectory(Paths.Directory);     /* create data directory */
 
-        /// <summary>
-        ///   Wrapper for subclass initialization methods.
-        /// </summary>
-        public void Initialise()
+      /* Rotate log files */
+      {
+        const int maxIncrement = 4;
+
+        // reverse-order for-loop so we can rename files without overwriting the others
+        // initialize `i` at max increment e.g. exception.4.log
+        for (int i = maxIncrement; i >= 0; i--)
         {
-            Directory.CreateDirectory(Paths.Directory);     /* create data directory */
-
-            if (Exists(Paths.Exception) && new FileInfo(Paths.Exception).Length > 0x100000) // If larger than 1 MiB, ...
-                WriteAllText(Paths.Exception, ""); // ...clear log.
-
-            /**
-             * We determine installation or initiation mode:
-             *
-             * -   initiation: The HCE executable exists, thus SPV3 is ready to be loaded.
-             * -   installation: The manifest exists, thus SPV3 is ready to be installed.
-             *
-             * If neither of the above apply in this scenario, then we prohibit loading or installing; instead, we prompt the
-             * user to place the loader in the current directory.
-             */
-
-            switch (Context.Infer())
+          string? path = i == 0
+              ? Paths.Exception
+              : Paths.Exception.Replace(".log", $".{i}.log");
+          if (Exists(path))
+          {
+            // if current file's number is the maximum value, delete it
+            if (i == maxIncrement)
+            { Delete(path); }
+            else // increment the log's number
             {
-                case Context.Type.Load:
-                    Load.Visibility = Visibility.Visible;
-                    Task.Run(() => { Assets.Initialise(); });
-                    break;
-
-                case Context.Type.Install:
-                    Install.Visibility = Visibility.Visible;
-                    break;
-
-                case Context.Type.Invalid:
-                    Error.Visibility = Visibility.Visible;
-                    Error.Content = "Please ensure this loader is in the appropriate SPV3 folder.";
-
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
+              // this is a bit hard for me understand (and I wrote it!), so here are some notes:
+              // if i == 0, the log file will be "exceptions.log"; set the number to 1
+              // otherwise, increment the log number
+              var destination = i == 0
+                  ? path.Replace(".log", ".1.log")
+                  : path.Replace($".{i}.log", $".{i + 1}.log");
+              ((HXE.File)path).Move(destination);
             }
-
-            if (Exists(Paths.Compile))
-                Compile.Visibility = Visibility.Visible;
+          }
         }
+      }
 
-        /// <summary>
-        ///   Wrapper for the load routine with UI support.
-        /// </summary>
-        public void Invoke()
-        {
-            try
-            {
-                Load.Invoke();
-            }
-            catch (Exception e)
-            {
-                Exception(e, "Loading error");
-            }
-        }
 
-        /// <summary>
-        ///   Wrapper for the asset update routine with UI support.
-        /// </summary>
-        public void Update()
-        {
-            try
-            {
-                Assets.Update();
-            }
-            catch (Exception e)
-            {
-                Exception(e, "Update error");
-            }
-        }
+      /**
+       * We determine installation or initiation mode:
+       *
+       * -   initiation: The HCE executable exists, thus SPV3 is ready to be loaded.
+       * -   installation: The manifest exists, thus SPV3 is ready to be installed.
+       *
+       * If neither of the above apply in this scenario, then we prohibit loading or installing; instead, we prompt the
+       * user to place the loader in the current directory.
+       */
 
-        /// <summary>
-        ///   Successfully exits the SPV3 loader.
-        /// </summary>
-        public void Quit()
-        {
-            Environment.Exit(0);
-        }
+      switch (Context.Infer())
+      {
+        case Context.Type.Load:
+          Load.Visibility = Visibility.Visible;
+          Task.Run(() => { Assets.Initialise(); });
+          break;
 
-        private void Exception(Exception e, string description)
-        {
-            AppendAllText(Paths.Exception, e.ToString() + "\n");
+        case Context.Type.Install:
+          Install.Visibility = Visibility.Visible;
+          break;
 
-            Error.Visibility = Visibility.Visible;
-            Error.Content = $"{description}: {e.Message.ToLower()}\n\nClick here for more information.";
-        }
+        case Context.Type.Invalid:
+          Error.Visibility = Visibility.Visible;
+          Error.Content = "Please ensure this loader is in the appropriate SPV3 folder.";
+
+          break;
+
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+
+      if (Exists(Paths.Compile))
+        Compile.Visibility = Visibility.Visible;
     }
+
+    /// <summary>
+    ///   Wrapper for the load routine with UI support.
+    /// </summary>
+    public void Invoke()
+    {
+      try
+      {
+        Load.Invoke();
+      }
+      catch (Exception e)
+      {
+        Exception(e, "Loading error");
+      }
+    }
+
+    /// <summary>
+    ///   Wrapper for the asset update routine with UI support.
+    /// </summary>
+    public void Update()
+    {
+      try
+      {
+        Assets.Update();
+      }
+      catch (Exception e)
+      {
+        Exception(e, "Update error");
+      }
+    }
+
+    /// <summary>
+    ///   Successfully exits the SPV3 loader.
+    /// </summary>
+    public void Quit()
+    {
+      Environment.Exit(0);
+    }
+
+    private void Exception(Exception e, string description)
+    {
+      var log = (HXE.File)Paths.Exception;
+      log.AppendAllText(e + "\n");
+
+      Error.Visibility = Visibility.Visible;
+      Error.Content = $"{description}: {e.Message.ToLower()}\n\nClick here for more information.";
+    }
+  }
 }

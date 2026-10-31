@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Copyright (c) 2019 Emilian Roman
  *
  * This software is provided 'as-is', without any express or implied
@@ -32,28 +32,28 @@ namespace SPV3
     {
       InitializeComponent();
 
-      ReadmeButton.Visibility    = File.Exists(Paths.Readme) ? Visibility.Visible : Visibility.Collapsed;
+      ReadmeButton.Visibility = File.Exists(Paths.Readme) ? Visibility.Visible : Visibility.Collapsed;
       ChangelogButton.Visibility = File.Exists(Paths.Changelog) ? Visibility.Visible : Visibility.Collapsed;
-      CreditsButton.Visibility   = File.Exists(Paths.Credits) ? Visibility.Visible : Visibility.Collapsed;
+      CreditsButton.Visibility = File.Exists(Paths.Credits) ? Visibility.Visible : Visibility.Collapsed;
       OptiGuideButton.Visibility = File.Exists(Paths.OptimizeGuide) ? Visibility.Visible : Visibility.Collapsed;
     }
 
-    private void Readme(object sender, MouseButtonEventArgs e)
+    private void Readme(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(Paths.Readme);
     }
 
-    private void Changelog(object sender, MouseButtonEventArgs e)
+    private void Changelog(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(Paths.Changelog);
     }
 
-    private void Credits(object sender, MouseButtonEventArgs e)
+    private void Credits(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(Paths.Credits);
     }
 
-    private void OptimizationGuide(object sender, MouseButtonEventArgs e)
+    private void OptimizationGuide(object? sender, MouseButtonEventArgs e)
     {
       Process.Start(Paths.OptimizeGuide);
     }
