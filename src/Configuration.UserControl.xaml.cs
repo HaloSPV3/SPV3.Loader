@@ -84,8 +84,8 @@ namespace SPV3
       LogInfo("Showing Controller Preset dialog...", nameof(ShowInputPresetWindowConfirmation));
 
       ControllerPreset controllerPresetWindow = new ControllerPreset();
-      controllerPresetWindow.ButtonAccept.Visibility = Visibility.Visible;
-      controllerPresetWindow.ButtonCancel.Visibility = Visibility.Visible;
+      controllerPresetWindow.ButtonAccept.Visibility =
+        controllerPresetWindow.ButtonCancel.Visibility = Visibility.Visible;
 
       if (controllerPresetWindow.ShowDialog() != true)
         return;
