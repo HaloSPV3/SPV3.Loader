@@ -181,7 +181,7 @@
 					<!--	How do we indicate ShowInputPresetWindowConfirmation failed?-->
 					<Button Click="ShowInputPresetWindowConfirmation"
 									x:Name="ButtonApplyGamepadPreset"
-									Content="Apply SPV3 Gamepad Preset"
+									Content="Apply Gamepad Preset"
 									ToolTip="Apply SPV3's controller bindings preset upon confirmation."/>
 					<Label MouseLeftButtonUp="ShowInputPresetWindow"
 								 FontFamily="Segoe UI Symbol"
