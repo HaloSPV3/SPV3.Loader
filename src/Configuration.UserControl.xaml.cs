@@ -106,7 +106,6 @@ namespace SPV3
       {
         ButtonApplyGamepadPreset.Background = new SolidColorBrush(Colors.Transparent);
         ButtonApplyGamepadPreset.Background.BeginAnimation(SolidColorBrush.ColorProperty, ca);
-        ButtonApplyGamepadPreset.Background = new SolidColorBrush(Colors.Red);
       }
       catch (Exception exception)
       {
